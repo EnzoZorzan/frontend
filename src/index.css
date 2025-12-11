@@ -1,0 +1,44 @@
+/* src/index.css */
+
+/* Estilos globais */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(255, 255, 255, 0.849);
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botões */
+.btn-primary {
+  background-color: #09309b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background-color: #8203f8;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+/* Formulários */
+input, select, textarea, button {
+  border: 1px solid #0d5fda; /* cor cinza clara */
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

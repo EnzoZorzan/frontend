@@ -1,0 +1,30 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px;
+}
+
+.btn-primary {
+  padding: 8px 14px;
+  background: #4c83ff;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  background: #888;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.checkbox-line {
+  margin-bottom: 5px;
+}

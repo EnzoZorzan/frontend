@@ -1,0 +1,24 @@
+/* Light Theme */
+:root {
+  --bg-main: #f5f6fa;
+  --bg-card: white;
+  --bg-sidebar: #d6073b;
+  --text-color: #ffffff;
+  --text-light: #ffffff;
+  --header-bg: white;
+}
+
+/* Dark Theme */
+body[data-theme="dark"] {
+  --bg-main: #1e1e1e;
+  --bg-card: #2e2e2e;
+  --bg-sidebar: #d6073b;
+  --text-color: #ffffff;
+  --text-light: #ffffff;
+  --header-bg: #1a1a1a;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-color);
+}

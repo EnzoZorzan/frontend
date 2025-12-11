@@ -1,0 +1,226 @@
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
+
+/* WRAPPER */
+.premium-wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #e0e7ff, #dbeafe);
+  color: #111;
+}
+
+.premium-wrapper.dark {
+  background: linear-gradient(135deg, #111827, #1f2937);
+  color: #eee;
+}
+
+/* PANELS */
+.left-panel {
+  width: 50%;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.left-panel h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.left-panel p {
+  margin-top: 20px;
+  font-size: 18px;
+  max-width: 420px;
+  opacity: 0.8;
+}
+
+/* SHAPES */
+.hero-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+}
+.s1 { width: 220px; height: 220px; background: #60a5fa; top: 10%; right: 20%; }
+.s2 { width: 180px; height: 180px; background: #a78bfa; top: 55%; right: 10%; }
+.s3 { width: 150px; height: 150px; background: #34d399; bottom: 12%; right: 25%; }
+
+/* RIGHT PANEL */
+.right-panel {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOGIN CARD */
+.login-card {
+  width: 370px;
+  padding: 45px 35px;
+  border-radius: 20px;
+  text-align: center;
+
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+
+  animation: fadeIn 0.8s ease;
+}
+
+.dark .login-card {
+  background: rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.15);
+  color: #f3f4f6;
+}
+
+/* LOGO */
+.logo-circle {
+  width: 70px;
+  height: 70px;
+  background: #2563eb;
+  color: white;
+  font-size: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* =============================
+   FLOATING LABEL FIXES
+============================= */
+
+.input-group {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.8px solid #c4c4c4;
+  background: transparent;
+  font-size: 15px;
+  transition: .2s;
+  color: inherit;
+
+  /* NECESSÁRIO PARA O FLOAT LABEL FUNCIONAR */
+  /* placeholder invisível para acionar :placeholder-shown */
+  placeholder: " ";
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+}
+
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 14px;
+  opacity: .7;
+  pointer-events: none;
+  transition: .25s;
+}
+
+/* FLOAT LABEL — AJUSTADO */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -9px;
+  font-size: 12px;
+  color: #2563eb;
+  opacity: 1;
+}
+
+/* BUTTON */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn:hover { transform: scale(1.03); background: #1d4ed8; }
+.btn:active { transform: scale(.95); }
+
+/* LOADER */
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ERROR */
+.error {
+  color: #dc2626;
+  margin-top: -6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.error-placeholder {
+  height: 18px;
+}
+
+/* DARK MODE TOGGLE */
+.theme-toggle {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  border: none;
+  padding: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+/* ANIM */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .premium-wrapper { flex-direction: column; }
+  .left-panel { display: none; }
+  .right-panel { width: 100%; }
+}
+
+/* CENTRALIZAR card em telas sem left-panel */
+.premium-wrapper.single-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* remover left-panel quando usando modo "single-center" */
+.premium-wrapper.single-center .left-panel {
+  display: none;
+}
+
+/* garantir alinhamento */
+.single-center .right-panel {
+  width: auto;
+}
+

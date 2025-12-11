@@ -1,0 +1,86 @@
+/* CONTAINER */
+.mural-container {
+  padding: 40px;
+  animation: fadeIn 0.4s ease;
+  color: var(--text-color, #111);
+}
+
+/* TITULO */
+.mural-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--title-color, #1e3a8a);
+}
+
+/* SUBTITULO */
+.mural-subtitle {
+  font-size: 17px;
+  opacity: 0.8;
+  margin-bottom: 35px;
+}
+
+/* GRID DOS CARDS */
+.mural-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 25px;
+}
+
+/* CARD PREMIUM */
+.mural-card {
+  padding: 25px;
+  border-radius: 18px;
+
+  /* 🔥 efeito vidro premium igual login */
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+  transition: 0.3s ease;
+}
+
+/* HOVER MELHORADO */
+.mural-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 38px rgba(0,0,0,0.22);
+}
+
+/* TITULOS DOS CARDS */
+.mural-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--title-color, #1e3a8a);
+  margin-bottom: 12px;
+}
+
+/* TEXTO DO CARD */
+.mural-card p {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* DARK MODE AJUSTADO */
+.dark .mural-container {
+  --text-color: #f3f4f6;
+  --title-color: #60a5fa;
+}
+
+.dark .mural-card {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f3f4f6;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+.dark .mural-card h3 {
+  color: #93c5fd;
+}
+
+/* ANIMAÇÃO */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

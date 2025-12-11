@@ -1,0 +1,100 @@
+/* =========================================
+   PREMIUM CONFIRM DIALOG (GLASS UI)
+========================================= */
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+
+  animation: fadeInConfirm 0.25s ease;
+}
+
+.confirm-box {
+  width: 420px;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.35);
+
+  padding: 26px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+
+  animation: slideInConfirm 0.3s ease;
+  color: #111;
+}
+
+.dark .confirm-box {
+  background: rgba(0,0,0,0.35);
+  border-color: rgba(255,255,255,0.15);
+  color: white;
+}
+
+/* TÍTULO */
+.confirm-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* MENSAGEM */
+.confirm-message {
+  font-size: 15px;
+  opacity: 0.85;
+  margin-bottom: 22px;
+}
+
+/* AÇÕES */
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* BOTÕES */
+.confirm-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.25s ease;
+}
+
+/* CANCELAR */
+.confirm-btn.cancel {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(4px);
+}
+
+.confirm-btn.cancel:hover {
+  background: rgba(255,255,255,0.85);
+}
+
+/* CONFIRMAR */
+.confirm-btn.confirm {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  box-shadow: 0 4px 12px rgba(185,28,28,0.4);
+}
+
+.confirm-btn.confirm:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeInConfirm {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInConfirm {
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
