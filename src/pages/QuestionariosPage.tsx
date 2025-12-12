@@ -18,6 +18,7 @@ export default function QuestionariosPage() {
 
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [toDelete, setToDelete] = useState<any>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -87,6 +88,20 @@ export default function QuestionariosPage() {
   // SALVAR (CREATE OR UPDATE)
   // ================================
   async function salvar() {
+    const newErrors: Record<string, string> = {};
+
+    // === VALIDAÇÃO ===
+    if (!form.titulo.trim()) newErrors.titulo = "O título é obrigatório.";
+    if (!form.descricao.trim()) newErrors.descricao = "A descrição é obrigatória.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.showToast("Preencha todos os campos obrigatórios.", "error");
+      return;
+    }
+
+    setErrors({}); // limpa erros
+
     try {
       const token = localStorage.getItem("token");
 
@@ -198,18 +213,23 @@ export default function QuestionariosPage() {
         <div className="form-group">
           <label>Título</label>
           <input
+            className={errors.titulo ? "input-error" : ""}
             value={form.titulo}
             onChange={e => setForm({ ...form, titulo: e.target.value })}
           />
+          {errors.titulo && <span className="error-text">{errors.titulo}</span>}
         </div>
 
         <div className="form-group">
           <label>Descrição</label>
           <textarea
+            className={errors.descricao ? "input-error" : ""}
             value={form.descricao}
             onChange={e => setForm({ ...form, descricao: e.target.value })}
-          />
+          ></textarea>
+          {errors.descricao && <span className="error-text">{errors.descricao}</span>}
         </div>
+
       </Modal>
 
       {/* CONFIRMAR EXCLUSÃO */}

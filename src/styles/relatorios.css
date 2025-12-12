@@ -1,16 +1,64 @@
+/* ============================================================
+   VARIABLES — CUIDATIVA COLOR SYSTEM
+============================================================ */
+:root {
+  --primary: #0DB4D6;             /* Azul Turquesa */
+  --primary-strong: #04A8C2;       /* Azul Esverdeado */
+  --primary-soft: rgba(13,180,214,0.35);
+
+  --success: #21C56A;              /* Verde principal */
+  --success-light: #3DDC7E;        /* Verde claro */
+
+  --text: #2A2A2A;                 /* Texto padrão */
+  --text-strong: #04A8C2;          /* Títulos, destaque */
+  --text-soft: #2A2A2A99;          /* Texto leve */
+
+  --card-bg: rgba(255,255,255,0.65);
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  --card-shadow-hover: 0 10px 26px rgba(0,0,0,0.18);
+
+  --input-bg: rgba(255,255,255,0.85);
+  --input-border: rgba(0,0,0,0.18);
+
+  --placeholder: rgba(0,0,0,0.07);
+}
+
+/* DARK MODE */
+.dark {
+  --text: #f3f4f6;
+  --text-strong: #0DB4D6;
+  --text-soft: #d1d5db;
+
+  --card-bg: rgba(0,0,0,0.35);
+  --input-bg: rgba(55,65,81,0.5);
+  --input-border: rgba(255,255,255,0.15);
+
+  --placeholder: rgba(255,255,255,0.1);
+
+  --card-shadow: 0 4px 14px rgba(0,0,0,0.45);
+  --card-shadow-hover: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+/* ============================================================
+   PAGE CONTAINER
+============================================================ */
 .page-container {
   padding: 25px;
   animation: fadeIn .3s ease;
 }
 
-/* Título */
+/* TITLE */
 .page-header h2 {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-strong);
+  letter-spacing: -0.5px;
 }
 
-/* Cards */
+/* ============================================================
+   CARDS (Resumo Rápido)
+============================================================ */
+
 .report-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -20,10 +68,11 @@
 
 .report-card {
   background: var(--card-bg);
-  border-radius: 14px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 22px;
   box-shadow: var(--card-shadow);
-  transition: .25s ease;
+  backdrop-filter: blur(12px);
+  transition: 0.25s ease;
 }
 
 .report-card:hover {
@@ -32,67 +81,79 @@
 }
 
 .report-number {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 34px;
+  font-weight: 800;
   margin-top: 8px;
+  color: var(--success); /* Destaque verde principal */
 }
 
 .report-desc {
-  font-size: 14px;
+  font-size: 15px;
+  margin-top: 4px;
   color: var(--text-soft);
-  opacity: .8;
 }
 
-/* Painéis */
+/* ============================================================
+   PAINÉIS DETALHADOS
+============================================================ */
+
 .report-panel {
   background: var(--card-bg);
+  border-radius: 16px;
   padding: 25px;
-  border-radius: 14px;
   margin-top: 25px;
   box-shadow: var(--card-shadow);
+  backdrop-filter: blur(12px);
 }
 
 .graph-placeholder {
   width: 100%;
-  height: 250px;
-  border-radius: 12px;
+  height: 260px;
+  border-radius: 14px;
   background: var(--placeholder);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-soft);
   font-size: 15px;
-  opacity: .8;
-  margin-top: 15px;
+  opacity: .85;
+  margin-top: 18px;
 }
 
-/* Select */
+/* ============================================================
+   SELECT INPUTS
+============================================================ */
+
 .report-label {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 8px;
   display: block;
+  color: var(--text-strong);
 }
 
 .report-select {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
   border: 1.8px solid var(--input-border);
   width: 100%;
   font-size: 15px;
   background: var(--input-bg);
   color: var(--text);
+  transition: .25s;
 }
 
 .report-select:focus {
   border-color: var(--primary);
   outline: none;
-  box-shadow: 0 0 5px var(--primary-soft);
+  box-shadow: 0 0 6px var(--primary-soft);
 }
 
-/* Animação */
+/* ============================================================
+   ANIMATION
+============================================================ */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
-  to { opacity:1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }

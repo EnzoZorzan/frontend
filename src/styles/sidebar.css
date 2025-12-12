@@ -1,14 +1,30 @@
-/* ROOT COLORS (usadas no tema premium) */
+/* ============================================================
+   CUIDATIVA COLOR SYSTEM — SIDEBAR
+============================================================ */
 :root {
+  /* Paleta principal */
+  --primary: #0DB4D6;
+  /* azul turquesa */
+  --primary-strong: #04A8C2;
+  /* azul esverdeado */
+  --success: #21C56A;
+  /* verde principal */
+  --success-light: #3DDC7E;
+
+  /* Sidebar */
   --sidebar-bg: rgba(255, 255, 255, 0.35);
   --sidebar-border: rgba(255, 255, 255, 0.25);
-  --sidebar-shadow: rgba(0, 0, 0, 0.15);
+  --sidebar-shadow: rgba(0, 0, 0, 0.12);
 
-  --text: #1e293b;
-  --text-light: #64748b;
+  /* Texto */
+  --text: #2A2A2A;
+  --text-light: #4b5563;
 
-  --accent-bg: rgba(37, 99, 235, 0.15);
-  --accent-text: #1d4ed8;
+  /* Destaques */
+  --accent-bg: rgba(13, 180, 214, 0.18);
+  /* Azul Turquesa suave */
+  --accent-text: #04A8C2;
+  /* Azul Esverdeado */
 }
 
 .dark {
@@ -17,13 +33,15 @@
   --sidebar-shadow: rgba(0, 0, 0, 0.55);
 
   --text: #e2e8f0;
-  --text-light: #94a3b8;
+  --text-light: #bfc6d1;
 
-  --accent-bg: rgba(96, 165, 250, 0.18);
-  --accent-text: #60a5fa;
+  --accent-bg: rgba(13, 180, 214, 0.22);
+  --accent-text: #0DB4D6;
 }
 
-/* SIDEBAR PREMIUM */
+/* ============================================================
+   SIDEBAR PREMIUM GLASS
+============================================================ */
 .sidebar {
   width: 250px;
   height: 100vh;
@@ -38,6 +56,7 @@
 
   display: flex;
   flex-direction: column;
+
   transition: width 0.25s ease, background 0.25s ease;
 }
 
@@ -45,7 +64,6 @@
   width: 78px;
 }
 
-/* BOTÃO COLAPSAR */
 .collapse-btn {
   background: rgba(255, 255, 255, 0.45);
   border: none;
@@ -53,30 +71,75 @@
   border-radius: 10px;
   cursor: pointer;
 
-  width: 100%;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  margin-left: auto;
+  /* garante alinhamento à direita */
   color: var(--text);
   transition: 0.25s ease;
-}
-.dark .collapse-btn {
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .collapse-btn:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.65);
 }
 
-/* TÍTULO */
+.dark .collapse-btn {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* ============================================================
+   BOTÃO MURAL PREMIUM
+============================================================ */
+.sidebar-home-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px;
+
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: 0.25s ease;
+}
+
+.sidebar-home-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.dark .sidebar-home-btn {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .sidebar-home-btn:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* ============================================================
+   TÍTULO
+============================================================ */
 .sidebar-title {
   font-size: 22px;
   font-weight: 700;
   margin: 15px 0 20px 5px;
-  opacity: 0.9;
+  color: var(--primary-strong);
 }
 
-/* SEÇÕES DO MENU */
+/* ============================================================
+   MENU SECTIONS
+============================================================ */
 .menu-section {
   margin-bottom: 20px;
 }
@@ -88,12 +151,14 @@
 
   background: none;
   border: none;
+
   color: var(--text);
   cursor: pointer;
   width: 100%;
 
-  font-size: 15px;
   padding: 10px 8px;
+  font-size: 15px;
+
   border-radius: 10px;
   transition: 0.25s ease;
 }
@@ -102,13 +167,15 @@
   background: var(--accent-bg);
 }
 
-/* SUBMENU */
+/* ============================================================
+   SUBMENU
+============================================================ */
 .submenu {
-  padding-left: 12px;
+  padding-left: 14px;
   margin-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .submenu li a {
@@ -118,6 +185,7 @@
 
   padding: 8px 10px;
   border-radius: 10px;
+
   text-decoration: none;
   color: var(--text);
   transition: 0.25s ease;
@@ -127,15 +195,19 @@
   background: var(--accent-bg);
 }
 
-/* ITEM ATIVO */
+/* ============================================================
+   ITEM ATIVO
+============================================================ */
 .submenu li.active a,
 .menu-link.active {
   background: var(--accent-bg);
   color: var(--accent-text);
-  font-weight: 600;
+  font-weight: 700;
 }
 
-/* LINKS PRINCIPAIS */
+/* ============================================================
+   LINKS PRINCIPAIS
+============================================================ */
 .menu-link {
   display: flex;
   align-items: center;
@@ -144,71 +216,130 @@
   padding: 12px 10px;
   margin-top: 5px;
 
-  color: var(--text);
-  text-decoration: none;
   border-radius: 12px;
 
-  transition: 0.25s ease;
+  color: var(--text);
+  text-decoration: none;
+
+  transition: 0.25s;
 }
 
 .menu-link:hover {
   background: var(--accent-bg);
 }
 
-/* LOGOUT / RODAPÉ */
+/* ============================================================
+   LOGOUT
+============================================================ */
 .logout-button {
   margin-top: auto;
+
   background: none;
   border: none;
   color: var(--text);
+
   display: flex;
   align-items: center;
   gap: 12px;
+
   cursor: pointer;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
+
+  transition: 0.25s ease;
 }
 
 .logout-button:hover {
   background: var(--accent-bg);
 }
 
-/* ANIMAÇÃO */
+/* ============================================================
+   ANIMAÇÃO
+============================================================ */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-/* BOTÃO MURAL PREMIUM */
-.sidebar-home-btn {
+.sidebar-logo-area {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 10px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 25px;
+}
 
-  background: rgba(255,255,255,0.25);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.35);
+.sidebar-logo {
+  height: 40px;
+  width: auto;
+}
 
-  color: var(--text);
-  font-weight: 600;
+.sidebar.collapsed .sidebar-logo-text {
+  display: none;
+}
+
+/* ================================================
+   TOPO DO SIDEBAR — LOGO + BOTÃO COLAPSAR
+================================================ */
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+/* Área da logo */
+.sidebar-logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sidebar-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-strong);
+}
+
+/* Esconder texto quando colapsado */
+.sidebar.collapsed .sidebar-logo-text {
+  display: none;
+}
+
+/* Botão colapsar alinhado ao topo */
+.collapse-btn {
+  width: auto !important;
+  /* impede de ocupar largura total */
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-logo-link {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 4px;
+  border-radius: 10px;
   transition: 0.25s ease;
 }
 
-.sidebar-home-btn:hover {
+.sidebar-logo-link:hover {
+  background: var(--accent-bg);
   transform: translateY(-2px);
-  background: rgba(255,255,255,0.35);
-}
-
-/* MODO ESCURO */
-.dark .sidebar-home-btn {
-  background: rgba(0,0,0,0.35);
-  border-color: rgba(255,255,255,0.15);
-}
-
-.dark .sidebar-home-btn:hover {
-  background: rgba(0,0,0,0.5);
 }

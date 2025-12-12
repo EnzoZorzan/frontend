@@ -1,0 +1,42 @@
+.responder-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.questao-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.questao-card h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.questao-input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  width: 100%;
+  background: var(--input-bg);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}

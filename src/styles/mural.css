@@ -1,58 +1,64 @@
-/* CONTAINER */
+/* =========================================
+   MURAL PREMIUM – PALETA CUIDATIVA
+========================================= */
+
 .mural-container {
   padding: 40px;
   animation: fadeIn 0.4s ease;
-  color: var(--text-color, #111);
+  color: #2A2A2A; /* Preto neutro */
 }
 
-/* TITULO */
+/* TÍTULO PRINCIPAL */
 .mural-title {
   font-size: 32px;
   font-weight: 800;
   margin-bottom: 8px;
-  color: var(--title-color, #1e3a8a);
+
+  color: #04A8C2; /* Azul esverdeado – títulos */
 }
 
-/* SUBTITULO */
+/* SUBTÍTULO */
 .mural-subtitle {
   font-size: 17px;
   opacity: 0.8;
   margin-bottom: 35px;
 }
 
-/* GRID DOS CARDS */
+/* GRID DE CARDS */
 .mural-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: 25px;
 }
 
-/* CARD PREMIUM */
+/* =========================================
+   CARD PREMIUM – VIDRO CUIDATIVA
+========================================= */
+
 .mural-card {
   padding: 25px;
   border-radius: 18px;
 
-  /* 🔥 efeito vidro premium igual login */
   backdrop-filter: blur(18px);
   background: rgba(255, 255, 255, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.25);
 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   transition: 0.3s ease;
 }
 
-/* HOVER MELHORADO */
+/* HOVER GLASS */
 .mural-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 38px rgba(0,0,0,0.22);
 }
 
-/* TITULOS DOS CARDS */
+/* TÍTULO DO CARD */
 .mural-card h3 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--title-color, #1e3a8a);
+
+  color: #0DB4D6; /* Azul turquesa */
   margin-bottom: 12px;
 }
 
@@ -62,25 +68,35 @@
   opacity: 0.85;
 }
 
-/* DARK MODE AJUSTADO */
+/* =========================================
+   DARK MODE CUIDATIVA
+========================================= */
+
 .dark .mural-container {
-  --text-color: #f3f4f6;
-  --title-color: #60a5fa;
+  color: #f3f4f6;
+}
+
+.dark .mural-title {
+  color: #0DB4D6; /* mantém consistência */
 }
 
 .dark .mural-card {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0,0,0,0.35);
   border-color: rgba(255, 255, 255, 0.15);
   color: #f3f4f6;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+
+  box-shadow: 0 6px 25px rgba(0,0,0,0.55);
 }
 
 .dark .mural-card h3 {
-  color: #93c5fd;
+  color: #3DDC7E; /* Verde claro brilha no dark mode */
 }
 
-/* ANIMAÇÃO */
+/* =========================================
+   ANIMAÇÃO
+========================================= */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }

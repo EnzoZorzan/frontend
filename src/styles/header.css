@@ -1,4 +1,7 @@
-/* HEADER PREMIUM */
+/* =========================================
+   HEADER PREMIUM — CUIDATIVA DESIGN
+========================================= */
+
 .header {
   height: 70px;
   padding: 0 28px;
@@ -9,7 +12,8 @@
 
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.35);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(13, 180, 214, 0.28);
+  /* turquesa suave */
 
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
 
@@ -20,19 +24,26 @@
   transition: 0.25s ease;
 }
 
+/* DARK MODE */
 .dark .header {
   background: rgba(0, 0, 0, 0.25);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 25px rgba(0,0,0,0.45);
+  border-color: rgba(13, 180, 214, 0.18);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.45);
 }
 
 /* TÍTULO */
 .header-title {
   font-size: 24px;
   font-weight: 700;
-  color: var(--text);
+  color: #04A8C2;
+  /* azul esverdeado (texto institucional Cuidativa) */
   letter-spacing: -0.5px;
   animation: fadeIn 0.5s ease;
+}
+
+.dark .header-title {
+  color: #0DB4D6;
+  /* mais vibrante no dark */
 }
 
 /* LADO DIREITO */
@@ -42,26 +53,29 @@
   gap: 18px;
 }
 
-/* BOTÃO DE TEMA PREMIUM */
+/* BOTÃO DE TEMA */
 .theme-btn {
-  background: rgba(255,255,255,0.35);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(13, 180, 214, 0.25);
 
   padding: 8px 10px;
   border-radius: 10px;
 
   cursor: pointer;
-  color: var(--text);
+  color: #2A2A2A;
   transition: 0.25s ease;
 }
 
 .dark .theme-btn {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(13, 180, 214, 0.25);
+  color: #e8faff;
 }
 
 .theme-btn:hover {
   transform: translateY(-2px);
-  background: rgba(255,255,255,0.5);
+  background: rgba(13, 180, 214, 0.28);
+  box-shadow: 0 0 10px rgba(13, 180, 214, 0.4);
 }
 
 /* AVATAR PREMIUM */
@@ -74,19 +88,20 @@
   border-radius: 12px;
   cursor: pointer;
 
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(13, 180, 214, 0.28);
 
   transition: 0.25s ease;
 }
 
 .dark .header-avatar {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .header-avatar:hover {
   transform: translateY(-3px);
-  background: rgba(255,255,255,0.45);
+  background: rgba(13, 180, 214, 0.25);
+  box-shadow: 0 0 10px rgba(13, 180, 214, 0.45);
 }
 
 /* DROPDOWN PREMIUM */
@@ -99,20 +114,21 @@
   padding: 6px;
 
   backdrop-filter: blur(18px);
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.75);
 
   border-radius: 14px;
-  border: 1px solid rgb(255, 255, 255);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border: 1px solid rgba(13, 180, 214, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 
   animation: fadeDown 0.25s ease;
 }
 
 .dark .header-dropdown {
-  background: rgba(0,0,0,0.3);
-  border-color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.32);
+  border-color: rgba(13, 180, 214, 0.35);
 }
 
+/* DROPDOWN BUTTONS */
 .header-dropdown button {
   width: 100%;
   padding: 12px 14px;
@@ -124,7 +140,7 @@
   align-items: center;
   gap: 10px;
 
-  color: var(--text);
+  color: #2A2A2A;
   cursor: pointer;
   font-size: 14px;
 
@@ -132,17 +148,41 @@
   transition: 0.25s ease;
 }
 
+.dark .header-dropdown button {
+  color: #e8faff;
+}
+
 .header-dropdown button:hover {
-  background: rgba(255,255,255,0.45);
+  background: rgba(13, 180, 214, 0.22);
 }
 
 /* ANIMAÇÕES */
 @keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-logo {
+  height: 42px;
+  width: auto;
+  margin-right: 12px;
 }

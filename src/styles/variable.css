@@ -1,0 +1,50 @@
+/* ===============================
+   PALETA DE CORES - CUIDATIVA
+   =============================== */
+
+:root {
+  /* ➤ PRINCIPAIS */
+  --primary: #21C56A;        /* Verde principal */
+  --primary-light: #3DDC7E;  /* Verde claro */
+  --primary-dark: #1AA756;   /* Verde escurecido */
+
+  --info: #0DB4D6;           /* Azul turquesa */
+  --info-dark: #04A8C2;      /* Azul esverdeado */
+
+  /* ➤ NEUTRAS */
+  --text-strong: #2A2A2A;    /* Preto / cinza escuro */
+  --text: #3A3A3A;
+  --text-light: #6B7280;
+
+  --background: #F3FDF7;     /* Fundo leve esverdeado */
+  --surface: #FFFFFF;        /* Cartões e telas */
+  --surface-alt: #F6FFFA;
+
+  --border: #D6EDE1;
+
+  /* ➤ GRADIENTES PREMIUM */
+  --gradient-primary: linear-gradient(135deg, #21C56A, #0DB4D6);
+  --gradient-soft: linear-gradient(135deg, #EAFEFF, #EFFDF7);
+
+  /* ➤ SOMBRAS SUAVES */
+  --shadow: 0px 4px 18px rgba(0,0,0,0.08);
+  --shadow-strong: 0px 8px 28px rgba(0,0,0,0.12);
+}
+
+/* ===============================
+   DARK MODE
+   =============================== */
+.dark {
+  --background: #111827;
+  --surface: #1F2937;
+  --surface-alt: #111827;
+
+  --text: #E5E7EB;
+  --text-light: #9CA3AF;
+
+  --border: #374151;
+
+  --shadow: 0px 2px 14px rgba(0,0,0,0.45);
+
+  --gradient-primary: linear-gradient(135deg, #0DB4D6, #21C56A);
+}

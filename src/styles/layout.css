@@ -1,20 +1,38 @@
-/* CONTAINER GERAL */
+/* =========================================
+   CONTAINER GERAL COM GRADIENTE CUIDATIVA
+========================================= */
+
 .layout-container {
   display: flex;
   height: 100vh;
   overflow: hidden;
 
-  background: linear-gradient(135deg, #eef2ff, #e0e7ff, #dbeafe);
-  color: var(--text);
+  /* Gradiente institucional Cuidativa */
+  background: linear-gradient(
+    135deg,
+    rgba(13,180,214,0.18),   /* Azul Turquesa - topo */
+    rgba(4,168,194,0.16),    /* Azul Esverdeado - meio */
+    rgba(33,197,106,0.18)    /* Verde principal - base */
+  );
 
+  color: var(--text);
   transition: 0.25s ease;
 }
 
 .dark .layout-container {
-  background: linear-gradient(135deg, #111827, #1f2937, #0f172a);
+  /* Gradiente dark mais sofisticado */
+  background: linear-gradient(
+    135deg,
+    #0b1a21,
+    #0d2a33,
+    #05252a
+  );
 }
 
-/* ÁREA DA DIREITA (HEADER + MAIN) */
+/* =========================================
+   ÁREA DA DIREITA (HEADER + CONTEÚDO)
+========================================= */
+
 .layout-content {
   flex: 1;
   display: flex;
@@ -22,32 +40,52 @@
   overflow: hidden;
 }
 
-/* MAIN PREMIUM */
+/* =========================================
+   CONTEÚDO PRINCIPAL (MAIN)
+========================================= */
+
 .layout-main {
   padding: 30px;
-
   overflow-y: auto;
   flex: 1;
 
-  animation: mainFade 0.4s ease;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(10px);
+
+  border-left: 1px solid rgba(255,255,255,0.35);
+
+  border-top-left-radius: 24px;
+
+  animation: mainFade 0.45s ease;
   position: relative;
 }
 
+.dark .layout-main {
+  background: rgba(0,0,0,0.25);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* =========================================
+   ANIMAÇÃO
+========================================= */
 @keyframes mainFade {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* SCROLLBAR PREMIUM */
+/* =========================================
+   SCROLLBAR PREMIUM
+========================================= */
+
 .layout-main::-webkit-scrollbar {
   width: 8px;
 }
 
 .layout-main::-webkit-scrollbar-thumb {
-  background: rgba(100, 116, 139, 0.4);
+  background: rgba(13,180,214,0.45); /* turquesa suave */
   border-radius: 6px;
 }
 
 .layout-main::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.6);
+  background: rgba(13,180,214,0.65);
 }

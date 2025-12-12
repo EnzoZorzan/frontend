@@ -1,4 +1,60 @@
 /* =====================================================================
+   VARIÁVEIS — PALETA CUIDATIVA (CLARO)
+===================================================================== */
+:root {
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --border: rgba(0, 0, 0, 0.12);
+
+  --text: #2A2A2A; /* Texto base */
+  --text-title: #04A8C2; /* Azul esverdeado */
+
+  --input-bg: rgba(255,255,255,0.8);
+
+  /* Acentos */
+  --accent: #0DB4D6;          /* Azul Turquesa */
+  --accent-strong: #04A8C2;   /* Azul Esverdeado */
+
+  /* Botões secundários */
+  --btn-secondary: rgba(0,0,0,0.05);
+  --btn-secondary-hover: rgba(0,0,0,0.12);
+
+  /* Botões perigosos */
+  --danger-bg: #FFE6E6;
+  --danger-border: #FFB3B3;
+  --danger-text: #B91C1C;
+  --danger-hover: #FFCCCC;
+
+  /* Sombra */
+  --shadow-sm: 0 3px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 10px 22px rgba(0,0,0,0.18);
+
+  /* Input Shadow */
+  --input-shadow: 0 0 8px rgba(13,180,214,0.35);
+}
+
+/* =====================================================================
+   DARK MODE — PALETA CUIDATIVA
+===================================================================== */
+
+.dark-mode {
+  --card-bg: rgba(31,41,55,0.6);
+  --border: rgba(255,255,255,0.1);
+
+  --text: #f3f4f6;
+  --text-title: #0DB4D6; /* Azul turquesa luminoso */
+
+  --input-bg: rgba(55,65,81,0.5);
+
+  --btn-secondary: rgba(255,255,255,0.08);
+  --btn-secondary-hover: rgba(255,255,255,0.14);
+
+  --danger-bg: #4b0000;
+  --danger-border: #ff8080;
+  --danger-text: #ffb3b3;
+}
+
+/* =====================================================================
    LAYOUT PRINCIPAL — PREMIUM
 ===================================================================== */
 
@@ -18,15 +74,15 @@
   background: var(--card-bg);
   padding: 16px 22px;
   border-radius: 16px;
-  box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
-  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
 }
 
 .page-header h2 {
-  margin: 0;
   font-size: 26px;
   font-weight: 700;
+  margin: 0;
   color: var(--text-title);
 }
 
@@ -46,7 +102,7 @@
 }
 
 /* =====================================================================
-   SEÇÃO DO FORMULÁRIO — TÍTULO E DESCRIÇÃO
+   FORM SECTION
 ===================================================================== */
 
 .form-section {
@@ -58,15 +114,8 @@
   backdrop-filter: blur(12px);
 }
 
-.form-section .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 18px;
-}
-
 .form-section label {
   font-weight: 600;
-  margin-bottom: 6px;
   color: var(--text-title);
 }
 
@@ -75,25 +124,19 @@
   padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  font-size: 16px;
   background: var(--input-bg);
   color: var(--text);
-  transition: border-color 0.2s;
+  transition: 0.2s;
 }
 
 .form-section input:focus,
 .form-section textarea:focus {
   border-color: var(--accent);
   box-shadow: var(--input-shadow);
-  outline: none;
-}
-
-.form-section textarea {
-  min-height: 70px;
 }
 
 /* =====================================================================
-   CARTÕES DE PERGUNTAS — PREMIUM CARD
+   CARTÕES DE PERGUNTAS
 ===================================================================== */
 
 .questao-card {
@@ -111,7 +154,8 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* HEADER INTERNO */
+/* HEADER DA QUESTÃO */
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -123,17 +167,17 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
 }
 
 .card-question-input {
-  padding: 10px 12px;
+  padding: 10px;
+  flex: 1;
   border-radius: 8px;
+  background: transparent;
   border: none;
   border-bottom: 2px solid var(--accent);
-  outline: none;
-  background: transparent;
   font-size: 17px;
-  width: 400px;
   color: var(--text);
 }
 
@@ -142,21 +186,21 @@
 }
 
 /* =====================================================================
-   SELECT E BOTÕES DE AÇÃO
+   SELECT E BOTÕES
 ===================================================================== */
 
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .card-actions select {
-  padding: 6px 8px;
-  background: var(--input-bg);
-  color: var(--text);
+  padding: 6px 10px;
   border-radius: 8px;
+  background: var(--input-bg);
   border: 1px solid var(--border);
+  color: var(--text);
 }
 
 .card-actions button {
@@ -165,12 +209,9 @@
   border-radius: 8px;
   border: none;
   background: var(--btn-secondary);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.2s;
   color: var(--text);
+  transition: 0.2s;
+  cursor: pointer;
 }
 
 .card-actions button:hover {
@@ -178,29 +219,19 @@
 }
 
 /* =====================================================================
-   OPÇÕES — PREMIUM
+   OPÇÕES DAS QUESTÕES
 ===================================================================== */
 
 .options-editor label {
-  font-weight: 600;
-  margin-bottom: 6px;
-  display: block;
   color: var(--text-title);
-}
-
-.option-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 0;
+  font-weight: 600;
 }
 
 .option-row input {
-  flex: 1;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid var(--border);
   background: var(--input-bg);
+  border: 1px solid var(--border);
   color: var(--text);
 }
 
@@ -208,24 +239,15 @@
   background: var(--danger-bg);
   border: 1px solid var(--danger-border);
   color: var(--danger-text);
-  padding: 7px 12px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .option-row button:hover {
   background: var(--danger-hover);
 }
 
-/* BOTÃO ADICIONAR OPÇÃO */
+/* ADICIONAR OPÇÃO */
 .option-actions button {
-  padding: 10px 14px;
-  border: none;
-  border-radius: 10px;
   background: var(--accent);
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
 }
 
 .option-actions button:hover {
@@ -233,25 +255,12 @@
 }
 
 /* =====================================================================
-   BOTÃO FLUTUANTE PREMIUM
+   BOTÃO FLUTUANTE
 ===================================================================== */
 
 .float-add-btn {
-  position: fixed;
-  right: 28px;
-  bottom: 28px;
-  width: 60px;
-  height: 60px;
-  border-radius: 18px;
-  background: var(--accent);
-  color: white;
-  font-size: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  background: linear-gradient(135deg, #21C56A, #3DDC7E);
   box-shadow: var(--shadow-lg);
-  transition: 0.2s ease;
 }
 
 .float-add-btn:hover {
@@ -265,7 +274,6 @@
 @media (max-width: 768px) {
   .page-header {
     flex-direction: column;
-    gap: 12px;
   }
 
   .card-header {
@@ -276,108 +284,4 @@
   .card-question-input {
     width: 100%;
   }
-
-  .card-actions {
-    flex-wrap: wrap;
-    width: 100%;
-  }
-
-  .float-add-btn {
-    width: 52px;
-    height: 52px;
-  }
-}
-
-/* =====================================================================
-   VARIÁVEIS PREMIUM (Clare e Dark)
-===================================================================== */
-
-:root {
-  --card-bg: rgba(255, 255, 255, 0.75);
-  --border: rgba(0, 0, 0, 0.12);
-  --text: #222;
-  --text-title: #1e3a8a;
-  --input-bg: rgba(255,255,255,0.8);
-  --accent: #6366f1;
-  --accent-strong: #4f46e5;
-
-  --btn-secondary: rgba(0,0,0,0.05);
-  --btn-secondary-hover: rgba(0,0,0,0.12);
-
-  --danger-bg: #ffe6e6;
-  --danger-border: #ffb3b3;
-  --danger-text: #b91c1c;
-  --danger-hover: #ffcccc;
-
-  --shadow-sm: 0 3px 8px rgba(0,0,0,0.08);
-  --shadow-md: 0 6px 16px rgba(0,0,0,0.12);
-  --shadow-lg: 0 10px 22px rgba(0,0,0,0.18);
-
-  --input-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
-}
-
-/* DARK MODE */
-.dark-mode {
-  --card-bg: rgba(31,41,55,0.6);
-  --border: rgba(255,255,255,0.1);
-  --text: #f3f4f6;
-  --text-title: #93c5fd;
-  --input-bg: rgba(55,65,81,0.6);
-
-  --btn-secondary: rgba(255,255,255,0.08);
-  --btn-secondary-hover: rgba(255,255,255,0.14);
-
-  --danger-bg: #4b0000;
-  --danger-border: #ff8080;
-  --danger-text: #ffb3b3;
-}
-
-/* HEADER DA QUESTÃO — ALINHADO INLINE PREMIUM */
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* deixa elementos nas extremidades */
-  gap: 20px;
-}
-
-/* Bloco da esquerda (número + campo da pergunta) */
-.card-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1; /* ocupa espaço necessário */
-}
-
-/* Campo da pergunta */
-.card-question-input {
-  flex: 1; /* expande até onde puder */
-  max-width: 100%;
-}
-
-/* Bloco da direita: select + botões */
-.card-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Agrupamento vertical ou horizontal dos botões */
-.card-action-buttons {
-  display: flex;
-  flex-direction: row; /* AGORA FICA INLINE */
-  gap: 6px;
-}
-
-.card-action-buttons button {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: var(--btn-secondary);
-  transition: 0.2s;
-}
-
-.card-action-buttons button:hover {
-  background: var(--btn-secondary-hover);
 }

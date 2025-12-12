@@ -15,6 +15,10 @@ import RecuperarSenhaPage from "./pages/RecuperarSenhaPage";
 import RedefinirSenhaPage from "./pages/RedefinirSenhaPage";
 import RelatoriosEmpresaPage from "./pages/RelatoriosEmpresaPage";
 import RelatoriosGeraisPage from "./pages/RelatorioGeraisPage";
+import ConfiguracoesPage from "./pages/ConfiguracoesPage";
+import MeuPerfilPage from "./pages/MeuPerfilPage";
+import ConvitesPage from "./pages/ConvitesPage";
+import ResponderPublicoPage from "./pages/ResponderPublicoPage";
 
 function App() {
   return (
@@ -27,6 +31,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/recuperar-senha" element={<RecuperarSenhaPage />} />
             <Route path="/redefinir-senha/:token" element={<RedefinirSenhaPage />} />
+            <Route path="/responder/:token" element={<ResponderPublicoPage />} />
 
             {/* ROTAS PROTEGIDAS */}
             <Route
@@ -46,6 +51,9 @@ function App() {
               <Route path="questionarios/:id" element={<EditarQuestionarioPage />} />
               <Route path="relatorios-gerais" element={<RelatoriosGeraisPage />} />
               <Route path="relatorios-empresa" element={<RelatoriosEmpresaPage />} />
+              <Route path="/meu-perfil" element={<MeuPerfilPage />} />
+              <Route path="/configuracoes" element={<ConfiguracoesPage />} />
+              <Route path="/convites" element={<ConvitesPage/>} />
             </Route>
 
           </Routes>

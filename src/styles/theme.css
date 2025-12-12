@@ -1,24 +1,97 @@
-/* Light Theme */
+/* ==========================================================
+   GLOBAL THEME VARIABLES — LIGHT MODE (default)
+   ========================================================== */
+
 :root {
-  --bg-main: #f5f6fa;
-  --bg-card: white;
-  --bg-sidebar: #d6073b;
-  --text-color: #ffffff;
-  --text-light: #ffffff;
-  --header-bg: white;
+  /* BACKGROUNDS */
+  --bg-main: linear-gradient(135deg, #E8FBF1, #E6F9FD);
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-sidebar: rgba(255, 255, 255, 0.35);
+
+  /* TEXT COLORS */
+  --text: #2A2A2A;             /* Preto suave (paleta Cuidativa) */
+  --text-soft: #475569;
+  --text-strong: #2A2A2A;
+  --text-inverse: white;
+
+  /* BRAND COLORS — CUIDATIVA */
+  --primary: #21C56A;          /* Verde institucional */
+  --primary-soft: rgba(33, 197, 106, 0.22);
+
+  --turquoise: #0DB4D6;        /* Azul turquesa */
+  --cyan: #04A8C2;             /* Azul esverdeado */
+  --green-light: #3DDC7E;      /* Verde claro */
+
+  /* CARD / GLASS */
+  --card-bg: rgba(255, 255, 255, 0.55);
+  --border: rgba(0,0,0,0.12);
+  --card-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  --card-shadow-hover: 0 10px 26px rgba(0,0,0,0.16);
+
+  /* INPUTS */
+  --input-bg: rgba(255,255,255,0.75);
+  --input-border: rgba(0,0,0,0.18);
+
+  /* PLACEHOLDER */
+  --placeholder: rgba(4,168,194,0.10);
+
+  /* BUTTONS */
+  --btn-primary: linear-gradient(135deg, #0DB4D6, #04A8C2);
+  --btn-primary-hover: linear-gradient(135deg, #04A8C2, #0DB4D6);
+
+  --btn-secondary: rgba(0,0,0,0.06);
+  --btn-secondary-hover: rgba(0,0,0,0.12);
+
+  /* DANGER */
+  --danger-bg: #ffe6e6;
+  --danger-border: #ffb3b3;
+  --danger-text: #b91c1c;
+
+  /* SIDEBAR */
+  --sidebar-bg: rgba(255,255,255,0.35);
+  --sidebar-border: rgba(255,255,255,0.25);
+
+  /* HEADER */
+  --header-bg: rgba(255,255,255,0.45);
 }
 
-/* Dark Theme */
+/* ==========================================================
+   DARK MODE — ACTIVATED WITH body[data-theme="dark"]
+   ========================================================== */
+
 body[data-theme="dark"] {
-  --bg-main: #1e1e1e;
-  --bg-card: #2e2e2e;
-  --bg-sidebar: #d6073b;
-  --text-color: #ffffff;
-  --text-light: #ffffff;
-  --header-bg: #1a1a1a;
+  --bg-main: linear-gradient(135deg, #0F172A, #1E293B);
+  --bg-card: rgba(0,0,0,0.45);
+
+  --text: #F3F4F6;
+  --text-soft: #CBD5E1;
+  --text-strong: #FFFFFF;
+  --text-inverse: white;
+
+  --card-bg: rgba(0,0,0,0.35);
+  --border: rgba(255,255,255,0.12);
+
+  --input-bg: rgba(255,255,255,0.08);
+  --input-border: rgba(255,255,255,0.25);
+
+  --placeholder: rgba(13,180,214,0.18);
+
+  --sidebar-bg: rgba(0,0,0,0.35);
+  --sidebar-border: rgba(255,255,255,0.15);
+
+  --header-bg: rgba(0,0,0,0.25);
+
+  --btn-secondary: rgba(255,255,255,0.08);
+  --btn-secondary-hover: rgba(255,255,255,0.14);
 }
+
+/* ==========================================================
+   BASE BODY STYLE
+   ========================================================== */
 
 body {
   background: var(--bg-main);
-  color: var(--text-color);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
+  font-family: "Inter", sans-serif;
 }

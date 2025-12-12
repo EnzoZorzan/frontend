@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
-  Home,
   Users,
   Building2,
   FileText,
@@ -38,24 +37,26 @@ export default function Sidebar() {
     { label: "Usuários", path: "/usuarios", perfis: [1, 2], icon: <Users size={18} /> },
     { label: "Empresas", path: "/empresas", perfis: [1], icon: <Building2 size={18} /> },
     { label: "Perfis", path: "/perfis", perfis: [1], icon: <Settings size={18} /> },
-    { label: "Questionários", path: "/questionarios", perfis: [1, 2], icon: <ClipboardList size={18} /> }
+    { label: "Permissões", path: "/permissoes", perfis: [1], icon: <Settings size={18} /> },
+    { label: "Questionários", path: "/questionarios", perfis: [1, 2], icon: <ClipboardList size={18} /> },
+    { label: "Convites", path: "/convites", perfis: [1, 2], icon: <ClipboardList size={18} /> }
   ]
 
   const filteredCadastros = cadastrosMenu.filter(hasPermission);
 
   return (
+
+
+
     <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-      {/* BOTÃO PARA O MURAL */}
-      <Link to="/mural" className="sidebar-home-btn">
-        <Home size={20} />
-        {!collapsed && <span>Mural</span>}
+      <Link to="/mural" className="sidebar-logo-area sidebar-logo-link">
+        <img src="/img/logo-cuidativa.PNG" className="sidebar-logo" />
+        {!collapsed && <span className="sidebar-logo-text">CuidAtiva</span>}
       </Link>
 
       <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>
         {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
       </button>
-
-
 
       <nav className="sidebar-menu">
 

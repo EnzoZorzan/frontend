@@ -2,22 +2,40 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
 
-/* WRAPPER */
+/* =========================================
+   WRAPPER – GRADIENTE CUIDATIVA
+========================================= */
+
 .premium-wrapper {
   display: flex;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background: linear-gradient(135deg, #e0e7ff, #dbeafe);
-  color: #111;
+
+  background: linear-gradient(
+    135deg,
+    rgba(13,180,214,0.20),   /* Turquesa */
+    rgba(4,168,194,0.22),    /* Azul Esverdeado */
+    rgba(33,197,106,0.20)    /* Verde Cuidativa */
+  );
+
+  color: #2A2A2A;
 }
 
 .premium-wrapper.dark {
-  background: linear-gradient(135deg, #111827, #1f2937);
-  color: #eee;
+  background: linear-gradient(
+    135deg,
+    #0b1a21,
+    #0d2a33,
+    #05252a
+  );
+  color: #f1f1f1;
 }
 
-/* PANELS */
+/* =========================================
+   PAINEL ESQUERDO
+========================================= */
+
 .left-panel {
   width: 50%;
   padding: 80px;
@@ -31,26 +49,35 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
   font-size: 48px;
   line-height: 1.2;
   font-weight: 800;
+  color: #04A8C2;
 }
 
 .left-panel p {
   margin-top: 20px;
   font-size: 18px;
   max-width: 420px;
-  opacity: 0.8;
+  opacity: 0.85;
+  color: #2A2A2A;
 }
 
-/* SHAPES */
+/* =========================================
+   SHAPES – AJUSTADOS PARA A PALETA
+========================================= */
+
 .hero-shapes .shape {
   position: absolute;
   border-radius: 50%;
   filter: blur(50px);
 }
-.s1 { width: 220px; height: 220px; background: #60a5fa; top: 10%; right: 20%; }
-.s2 { width: 180px; height: 180px; background: #a78bfa; top: 55%; right: 10%; }
-.s3 { width: 150px; height: 150px; background: #34d399; bottom: 12%; right: 25%; }
 
-/* RIGHT PANEL */
+.s1 { width: 220px; height: 220px; background: #0DB4D6; top: 10%; right: 20%; }
+.s2 { width: 180px; height: 180px; background: #04A8C2; top: 55%; right: 10%; }
+.s3 { width: 150px; height: 150px; background: #21C56A; bottom: 12%; right: 25%; }
+
+/* =========================================
+   RIGHT PANEL
+========================================= */
+
 .right-panel {
   width: 50%;
   display: flex;
@@ -58,17 +85,21 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
   align-items: center;
 }
 
-/* LOGIN CARD */
+/* =========================================
+   LOGIN CARD PREMIUM CUIDATIVA
+========================================= */
+
 .login-card {
   width: 370px;
   padding: 45px 35px;
   border-radius: 20px;
   text-align: center;
 
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.35);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.30);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255,255,255,0.45);
+
+  box-shadow: 0 10px 35px rgba(0,0,0,0.18);
 
   animation: fadeIn 0.8s ease;
 }
@@ -79,24 +110,31 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
   color: #f3f4f6;
 }
 
-/* LOGO */
-.logo-circle {
-  width: 70px;
-  height: 70px;
-  background: #2563eb;
-  color: white;
-  font-size: 32px;
-  border-radius: 50%;
+/* =========================================
+   LOGO CIRCLE
+========================================= */
+
+
+
+.logo-wrap {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 20px;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
 }
 
-/* =============================
-   FLOATING LABEL FIXES
-============================= */
+.login-logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================================
+   FLOATING INPUTS
+========================================= */
 
 .input-group {
   position: relative;
@@ -107,19 +145,21 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1.8px solid #c4c4c4;
-  background: transparent;
+
+  border: 1.8px solid rgba(0,0,0,0.20);
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
+
+  transition: .25s;
   font-size: 15px;
-  transition: .2s;
   color: inherit;
 
-  /* NECESSÁRIO PARA O FLOAT LABEL FUNCIONAR */
-  /* placeholder invisível para acionar :placeholder-shown */
   placeholder: " ";
 }
 
 .input-group input:focus {
-  border-color: #2563eb;
+  border-color: #0DB4D6;
+  box-shadow: 0 0 0 4px rgba(13,180,214,0.25);
 }
 
 .input-group label {
@@ -132,32 +172,46 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
   transition: .25s;
 }
 
-/* FLOAT LABEL — AJUSTADO */
+/* FLOAT LABEL */
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
   top: -9px;
   font-size: 12px;
-  color: #2563eb;
+  color: #0DB4D6;
   opacity: 1;
 }
 
-/* BUTTON */
+/* =========================================
+   BUTTON
+========================================= */
+
 .btn {
   width: 100%;
   padding: 12px;
-  background: #2563eb;
+
+  background: #21C56A; /* verde principal */
   color: white;
   border: none;
+
   font-size: 16px;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.25s;
 }
 
-.btn:hover { transform: scale(1.03); background: #1d4ed8; }
-.btn:active { transform: scale(.95); }
+.btn:hover {
+  transform: scale(1.03);
+  background: #18a858;
+}
 
-/* LOADER */
+.btn:active {
+  transform: scale(.95);
+}
+
+/* =========================================
+   LOADER
+========================================= */
+
 .loader {
   width: 18px;
   height: 18px;
@@ -168,59 +222,66 @@ body, html { height: 100%; font-family: "Inter", sans-serif; overflow: hidden; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ERROR */
+/* =========================================
+   ERRO
+========================================= */
+
 .error {
-  color: #dc2626;
+  color: #d62828;
   margin-top: -6px;
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-.error-placeholder {
-  height: 18px;
-}
+.error-placeholder { height: 18px; }
 
-/* DARK MODE TOGGLE */
+/* =========================================
+   TOGGLE TEMA
+========================================= */
+
 .theme-toggle {
   position: absolute;
   top: 25px;
   right: 25px;
-  border: none;
+
   padding: 12px;
+  border: none;
   background: white;
+
   border-radius: 50%;
   cursor: pointer;
   font-size: 18px;
+
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);
 }
 
-/* ANIM */
+/* =========================================
+   ANIMAÇÃO
+========================================= */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE */
+/* =========================================
+   RESPONSIVO
+========================================= */
+
 @media (max-width: 900px) {
   .premium-wrapper { flex-direction: column; }
   .left-panel { display: none; }
   .right-panel { width: 100%; }
 }
 
-/* CENTRALIZAR card em telas sem left-panel */
 .premium-wrapper.single-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* remover left-panel quando usando modo "single-center" */
-.premium-wrapper.single-center .left-panel {
-  display: none;
-}
+.premium-wrapper.single-center .left-panel { display: none; }
 
-/* garantir alinhamento */
 .single-center .right-panel {
   width: auto;
 }
-

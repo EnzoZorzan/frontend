@@ -16,6 +16,8 @@ export default function EmpresasPage() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [toDelete, setToDelete] = useState<any>(null);
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const toast = useToast();
 
   // FORM ALINHADO COM A ENTIDADE Java
@@ -89,6 +91,24 @@ export default function EmpresasPage() {
   // SALVAR (CREATE OR UPDATE)
   // ================================
   async function salvar() {
+    const newErrors: Record<string, string> = {};
+
+    // ==== VALIDAÇÃO DOS CAMPOS ====
+    if (!form.nome.trim()) newErrors.nome = "O nome é obrigatório.";
+    if (!form.emailEmp.trim()) newErrors.emailEmp = "O e-mail é obrigatório.";
+    if (!form.telefoneEmp.trim()) newErrors.telefoneEmp = "O telefone é obrigatório.";
+    if (!form.enderecoEmp.trim()) newErrors.enderecoEmp = "O endereço é obrigatório.";
+    if (!form.cnpj.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
+
+    // Verifica erros
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.showToast("Preencha todos os campos obrigatórios.", "error");
+      return;
+    }
+
+    setErrors({}); // limpar erros
+
     try {
       const token = localStorage.getItem("token");
 
@@ -134,6 +154,7 @@ export default function EmpresasPage() {
       toast.showToast("Erro ao salvar empresa", "error");
     }
   }
+
 
   // ================================
   // EXCLUIR EMPRESA
@@ -205,42 +226,57 @@ export default function EmpresasPage() {
         <div className="form-group">
           <label>Nome</label>
           <input
+            className={errors.nome ? "input-error" : ""}
             value={form.nome}
             onChange={e => setForm({ ...form, nome: e.target.value })}
           />
+          {errors.nome && <span className="error-text">{errors.nome}</span>}
         </div>
+
 
         <div className="form-group">
           <label>E-mail</label>
           <input
+            className={errors.emailEmp ? "input-error" : ""}
             value={form.emailEmp}
             onChange={e => setForm({ ...form, emailEmp: e.target.value })}
           />
+          {errors.emailEmp && <span className="error-text">{errors.emailEmp}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Telefone</label>
           <input
+            className={errors.telefoneEmp ? "input-error" : ""}
             value={form.telefoneEmp}
             onChange={e => setForm({ ...form, telefoneEmp: e.target.value })}
           />
+          {errors.telefoneEmp && <span className="error-text">{errors.telefoneEmp}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Endereço</label>
           <input
+            className={errors.enderecoEmp ? "input-error" : ""}
             value={form.enderecoEmp}
             onChange={e => setForm({ ...form, enderecoEmp: e.target.value })}
           />
+          {errors.enderecoEmp && <span className="error-text">{errors.enderecoEmp}</span>}
         </div>
+
 
         <div className="form-group">
           <label>CNPJ</label>
           <input
+            className={errors.cnpj ? "input-error" : ""}
             value={form.cnpj}
             onChange={e => setForm({ ...form, cnpj: e.target.value })}
           />
+          {errors.cnpj && <span className="error-text">{errors.cnpj}</span>}
         </div>
+
       </Modal>
 
       {/* CONFIRMAR EXCLUSÃO */}

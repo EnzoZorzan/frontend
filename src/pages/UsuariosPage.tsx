@@ -13,7 +13,7 @@ type UsuarioDTO = {
   email: string;
   senha?: string;
   perfil?: { id: number; nome: string };
-  empresa: { id: number; nome: string};
+  empresa: { id: number; nome: string };
 };
 
 export default function UsuariosPage() {
@@ -28,7 +28,11 @@ export default function UsuariosPage() {
 
   const toast = useToast();
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const [empresas, setEmpresas] = useState<any[]>([]);
+
+  const [perfis, setPerfis] = useState<any[]>([]);
 
   const [form, setForm] = useState({
     nome: "",
@@ -42,6 +46,7 @@ export default function UsuariosPage() {
 
   useEffect(() => {
     carregarEmpresas();
+    carregarPerfis();
   }, []);
 
   async function carregarEmpresas() {
@@ -58,6 +63,23 @@ export default function UsuariosPage() {
     } catch (e) {
       console.error(e);
       toast.showToast("Erro ao carregar empresas", "error");
+    }
+  }
+
+  async function carregarPerfis() {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://localhost:8081/api/v1/perfis", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (!res.ok) throw new Error("Erro ao buscar perfis");
+
+      const data = await res.json();
+      setPerfis(data);
+    } catch (e) {
+      console.error(e);
+      toast.showToast("Erro ao carregar perfis", "error");
     }
   }
 
@@ -81,7 +103,7 @@ export default function UsuariosPage() {
 
   function novo() {
     setEditando(null);
-    setForm({ nome: "", email: "", senha: "", perfilId: 1, empresaId: 0 });
+    setForm({ nome: "", email: "", senha: "", perfilId: 0, empresaId: 0 });
     setModalOpen(true);
   }
 
@@ -91,7 +113,7 @@ export default function UsuariosPage() {
       nome: item.nome,
       email: item.email,
       senha: "",
-      perfilId: item.perfil?.id ?? 1,
+      perfilId: item.perfil?.id ?? 0,
       empresaId: item.empresa?.id ?? 0
     });
     setModalOpen(true);
@@ -121,12 +143,33 @@ export default function UsuariosPage() {
   }
 
   async function salvar() {
+    const newErrors: Record<string, string> = {};
+
+    // === VALIDAÇÕES ===
+    if (!form.nome.trim()) newErrors.nome = "O nome é obrigatório.";
+    if (!form.email.trim()) newErrors.email = "O e-mail é obrigatório.";
+
+    // Senha obrigatória somente ao criar usuário
+    if (!editando && !form.senha.trim()) newErrors.senha = "A senha é obrigatória.";
+
+    if (!form.perfilId) newErrors.perfilId = "Selecione um perfil.";
+    if (!form.empresaId) newErrors.empresaId = "Selecione uma empresa.";
+
+    // Se houver erros → exibe e bloqueia o envio
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.showToast("Preencha todos os campos obrigatórios.", "error");
+      return;
+    }
+
+    setErrors({}); // limpa erros antes de salvar
+
     try {
       const token = localStorage.getItem("token");
       const payload: any = {
         nome: form.nome,
         email: form.email,
-        perfil: { id: form.perfilId },
+        perfil: form.perfilId > 0 ? { id: form.perfilId } : null,
         empresa: form.empresaId > 0 ? { id: form.empresaId } : null
       };
 
@@ -138,7 +181,7 @@ export default function UsuariosPage() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(payload)
         });
@@ -147,25 +190,24 @@ export default function UsuariosPage() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(payload)
         });
       }
 
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Erro no servidor");
-      }
+      if (!res.ok) throw new Error(await res.text());
 
-      toast.showToast(editando ? "Usuário atualizado" : "Usuário criado", "success");
+      toast.showToast(editando ? "Usuário atualizado!" : "Usuário criado!", "success");
       setModalOpen(false);
       carregar();
+
     } catch (e: any) {
       console.error(e);
-      toast.showToast(`Erro: ${e.message || "ao salvar"}`, "error");
+      toast.showToast(e.message || "Erro ao salvar usuário", "error");
     }
   }
+
 
   return (
     <div className="page-container">
@@ -181,6 +223,7 @@ export default function UsuariosPage() {
           columns={[
             { header: "Nome", field: "nome" },
             { header: "Email", field: "email" },
+            { header: "Empresa", field: "empresa.nome" }, // nested
             { header: "Perfil", field: "perfil.nome" } // nested
           ]}
           data={lista}
@@ -197,41 +240,67 @@ export default function UsuariosPage() {
       >
         <div className="form-group">
           <label>Nome</label>
-          <input value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
+          <input
+            className={errors.nome ? "input-error" : ""}
+            value={form.nome}
+            onChange={e => setForm({ ...form, nome: e.target.value })}
+          />
+          {errors.nome && <span className="error-text">{errors.nome}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Email</label>
-          <input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+          <input
+            className={errors.email ? "input-error" : ""}
+            value={form.email}
+            onChange={e => setForm({ ...form, email: e.target.value })}
+          />
+          {errors.email && <span className="error-text">{errors.email}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Senha {editando ? "(somente se for alterar)" : ""}</label>
-          <input type="password" value={form.senha} onChange={e => setForm({ ...form, senha: e.target.value })} />
+          <input
+            type="password"
+            className={errors.senha ? "input-error" : ""}
+            value={form.senha}
+            onChange={e => setForm({ ...form, senha: e.target.value })}
+          />
+          {errors.senha && <span className="error-text">{errors.senha}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Perfil</label>
-          <select value={form.perfilId} onChange={e => setForm({ ...form, perfilId: Number(e.target.value) })}>
-            <option value={1}>Administrador</option>
-            <option value={2}>Gerente</option>
-            <option value={3}>Supervisor</option>
+          <select
+            className={errors.perfilId ? "input-error" : ""}
+            value={form.perfilId}
+            onChange={e => setForm({ ...form, perfilId: Number(e.target.value) })}
+          >
+            <option value={0}>Selecione...</option>
+            {perfis.map(perf => (
+              <option key={perf.id} value={perf.id}>{perf.nome}</option>
+            ))}
           </select>
+          {errors.empresaId && <span className="error-text">{errors.perfilId}</span>}
         </div>
         <div className="form-group">
           <label>Empresa</label>
           <select
+            className={errors.empresaId ? "input-error" : ""}
             value={form.empresaId}
             onChange={e => setForm({ ...form, empresaId: Number(e.target.value) })}
           >
             <option value={0}>Selecione...</option>
             {empresas.map(emp => (
-              <option key={emp.id} value={emp.id}>
-                {emp.nome}
-              </option>
+              <option key={emp.id} value={emp.id}>{emp.nome}</option>
             ))}
           </select>
+          {errors.empresaId && <span className="error-text">{errors.empresaId}</span>}
         </div>
+
       </Modal>
 
       <ConfirmDialog

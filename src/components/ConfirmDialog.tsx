@@ -1,6 +1,6 @@
 // src/components/ConfirmDialog.tsx
 
-import React from "react";
+
 import "../styles/modal.css"; // mantém reutilização do modal base
 import "../styles/confirm.css"; // estilos premium (vamos criar abaixo)
 

@@ -17,6 +17,8 @@ export default function PerfisPage() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [toDelete, setToDelete] = useState<any>(null);
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const toast = useToast();
 
   const [form, setForm] = useState({
@@ -104,6 +106,26 @@ export default function PerfisPage() {
   // SALVAR
   // ================================
   async function salvar() {
+    const newErrors: Record<string, string> = {};
+
+    // === VALIDAÇÕES ===
+    if (!form.nome.trim()) {
+      newErrors.nome = "O nome do perfil é obrigatório.";
+    }
+
+    if (form.permissoes.length === 0) {
+      newErrors.permissoes = "Selecione ao menos uma permissão.";
+    }
+
+    // Se houver erros, mostrar na tela e impedir o submit
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.showToast("Preencha todos os campos obrigatórios.", "error");
+      return;
+    }
+
+    setErrors({}); // limpa erros
+
     try {
       const token = localStorage.getItem("token");
 
@@ -225,15 +247,18 @@ export default function PerfisPage() {
         <div className="form-group">
           <label>Nome</label>
           <input
+            className={errors.nome ? "input-error" : ""}
             value={form.nome}
             onChange={e => setForm({ ...form, nome: e.target.value })}
           />
+          {errors.nome && <span className="error-text">{errors.nome}</span>}
         </div>
+
 
         <div className="form-group">
           <label>Permissões</label>
 
-          <div className="checkbox-list">
+          <div className={`checkbox-list ${errors.permissoes ? "input-error" : ""}`}>
             {permissoes.map((p: any) => (
               <label key={p.id} className="checkbox-item">
                 <input
@@ -245,6 +270,10 @@ export default function PerfisPage() {
               </label>
             ))}
           </div>
+
+          {errors.permissoes && (
+            <span className="error-text">{errors.permissoes}</span>
+          )}
         </div>
       </Modal>
 

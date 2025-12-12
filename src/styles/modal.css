@@ -1,63 +1,81 @@
 /* =========================================
-   PREMIUM GLASS MODAL
+   PREMIUM GLASS MODAL – CUIDATIVA
 ========================================= */
 
 .modal-overlay {
   position: fixed;
   inset: 0;
+
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(8px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
 
+  z-index: 999;
   animation: fadeIn 0.25s ease;
 }
 
-/* GLASS CONTAINER */
+/* =========================================
+   MODAL CONTAINER – CUIDATIVA
+========================================= */
+
 .modal-container {
   width: 480px;
   padding: 28px 30px;
   border-radius: 18px;
 
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
 
   box-shadow: 0 12px 45px rgba(0,0,0,0.25);
   animation: slideIn 0.3s ease;
-  color: #111;
+
+  color: #2A2A2A; /* texto escuro neutro */
 }
 
 .dark .modal-container {
-  background: rgba(0,0,0,0.35);
-  border-color: rgba(255,255,255,0.15);
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255,255,255,0.18);
   color: #f3f4f6;
 }
 
-/* TITLE */
+/* =========================================
+   TÍTULO
+========================================= */
+
 .modal-title {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 18px;
-  letter-spacing: -.3px;
-  color: var(--text);
+  letter-spacing: -0.3px;
+  color: #04A8C2; /* azul esverdeado – títulos */
 }
 
-/* BODY */
+/* =========================================
+   BODY
+========================================= */
+
 .modal-body {
   margin-bottom: 22px;
 }
 
-/* FOOTER */
+/* =========================================
+   FOOTER
+========================================= */
+
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
 }
 
-/* BUTTONS */
+/* =========================================
+   BUTTONS – CUIDATIVA
+========================================= */
+
 .modal-btn {
   padding: 10px 18px;
   border-radius: 10px;
@@ -67,14 +85,15 @@
   transition: 0.25s ease;
 }
 
+/* CANCELAR */
 .modal-btn.cancel {
-  background: rgba(255,255,255,0.6);
-  color: #374151;
+  background: rgba(255,255,255,0.65);
+  color: #2A2A2A;
   backdrop-filter: blur(6px);
 }
 
 .modal-btn.cancel:hover {
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
 }
 
 .dark .modal-btn.cancel {
@@ -82,24 +101,28 @@
   color: #e5e7eb;
 }
 
+/* SALVAR */
 .modal-btn.save {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(135deg, #21C56A, #3DDC7E); /* Verde principal → verde claro */
   color: white;
-  box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+  box-shadow: 0 4px 12px rgba(33,197,106,0.35);
 }
 
 .modal-btn.save:hover {
   transform: translateY(-2px);
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #1bab58, #32c86f);
 }
 
-/* ANIMATIONS */
+/* =========================================
+   ANIMAÇÕES
+========================================= */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(-14px) scale(0.98); }
+  from { opacity: 0; transform: translateY(-14px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }

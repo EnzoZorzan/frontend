@@ -18,6 +18,8 @@ export default function PermissoesPage() {
 
   const toast = useToast();
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const [form, setForm] = useState({
     nomeModulo: "",
     descricaoModulo: ""
@@ -79,6 +81,20 @@ export default function PermissoesPage() {
   // SALVAR (CREATE OU UPDATE)
   // ================================
   async function salvar() {
+    const newErrors: Record<string, string> = {};
+
+    // === VALIDAÇÕES ===
+    if (!form.nomeModulo.trim()) newErrors.nomeModulo = "O nome da permissão é obrigatório.";
+    if (!form.descricaoModulo.trim()) newErrors.descricaoModulo = "A descrição é obrigatória.";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast.showToast("Preencha todos os campos obrigatórios.", "error");
+      return;
+    }
+
+    setErrors({}); // limpa os erros antes de salvar
+
     try {
       const token = localStorage.getItem("token");
 
@@ -111,11 +127,7 @@ export default function PermissoesPage() {
 
       if (!res.ok) throw new Error("Erro ao salvar permissão");
 
-      toast.showToast(
-        editando ? "Permissão atualizada!" : "Permissão criada!",
-        "success"
-      );
-
+      toast.showToast(editando ? "Permissão atualizada!" : "Permissão criada!", "success");
       setModalOpen(false);
       carregar();
 
@@ -124,6 +136,7 @@ export default function PermissoesPage() {
       toast.showToast("Erro ao salvar permissão", "error");
     }
   }
+
 
   // ================================
   // EXCLUIR PERMISSÃO
@@ -192,17 +205,21 @@ export default function PermissoesPage() {
         <div className="form-group">
           <label>Nome da Permissão</label>
           <input
+            className={errors.nomeModulo ? "input-error" : ""}
             value={form.nomeModulo}
             onChange={e => setForm({ ...form, nomeModulo: e.target.value })}
           />
+          {errors.nomeModulo && <span className="error-text">{errors.nomeModulo}</span>}
         </div>
 
         <div className="form-group">
           <label>Descrição</label>
           <textarea
+            className={errors.descricaoModulo ? "input-error" : ""}
             value={form.descricaoModulo}
             onChange={e => setForm({ ...form, descricaoModulo: e.target.value })}
           />
+          {errors.descricaoModulo && <span className="error-text">{errors.descricaoModulo}</span>}
         </div>
       </Modal>
 

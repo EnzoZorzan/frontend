@@ -1,5 +1,5 @@
 /* =========================================
-   PREMIUM INPUTS / FORMS
+   PREMIUM INPUTS / FORMS — CUIDATIVA DESIGN
 ========================================= */
 
 .form-group {
@@ -12,8 +12,13 @@
   font-weight: 600;
   margin-bottom: 6px;
   font-size: 14px;
-  color: var(--text);
+  color: #2A2A2A;
   opacity: 0.9;
+}
+
+.dark .form-group label {
+  color: #e5e5e5;
+  opacity: 1;
 }
 
 .form-group input,
@@ -22,25 +27,87 @@
   padding: 12px;
   border-radius: 10px;
 
-  border: 1.8px solid rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.55);
+  border: 1.8px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(6px);
 
   transition: 0.25s ease;
   font-size: 15px;
+  color: #2A2A2A;
 }
 
+/* DARK */
 .dark .form-group input,
 .dark .form-group select,
 .dark .form-group textarea {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.2);
-  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f3f4f6;
 }
 
+/* FOCUS — Azul Esverdeado / Turquesa */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37,99,235,0.25);
+  border-color: #04A8C2;
+  box-shadow: 0 0 0 4px rgba(13, 180, 214, 0.28);
+  outline: none;
+}
+
+/* PLACEHOLDER */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(42, 42, 42, 0.45);
+}
+
+.dark .form-group input::placeholder,
+.dark .form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* CAMPO COM ERRO */
+.input-error {
+  border-color: #dc2626 !important;
+  background: rgba(255, 0, 0, 0.06) !important;
+}
+
+/* TEXTO DE ERRO */
+.error-text {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.input-error {
+  border-color: #dc2626 !important;
+  background: rgba(255, 0, 0, 0.06) !important;
+}
+
+.error-text {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+}
+
+.checkbox-list.input-error {
+  border-color: #dc2626 !important;
+  background: rgba(255, 0, 0, 0.06) !important;
+}
+
+.checkbox-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }

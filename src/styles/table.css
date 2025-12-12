@@ -1,30 +1,106 @@
+/* ============================================================
+   TABELAS PREMIUM — CUIDATIVA GLASS UI
+============================================================ */
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 22px;
+
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-.table th, .table td {
-  border-bottom: 1px solid var(--border);
-  padding: 10px;
+/* DARK MODE */
+.dark .table {
+  background: rgba(0,0,0,0.30);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
+
+/* HEADER */
+.table th {
+  text-align: left;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+
+  background: linear-gradient(135deg, #0DB4D6, #04A8C2);
+  color: white;
+}
+
+/* CELLS */
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.dark .table td {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #e5e7eb;
+}
+
+/* HOVER */
+.table tr:hover td {
+  background: rgba(13, 180, 214, 0.10); /* azul turquesa suave */
+}
+
+.dark .table tr:hover td {
+  background: rgba(13, 180, 214, 0.20);
+}
+
+/* ============================================================
+   BUTTONS — Premium Style
+============================================================ */
 
 .btn-primary {
-  padding: 8px 14px;
-  background: #4c83ff;
+  display: inline-block;
+  padding: 8px 16px;
+
+  background: linear-gradient(135deg, #0DB4D6, #04A8C2);
   color: white;
-  border-radius: 6px;
+
+  border-radius: 10px;
+  font-weight: 600;
   text-decoration: none;
+
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(13,180,214,0.25);
 }
 
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #04A8C2, #0DB4D6);
+}
+
+/* Small Button (actions inside table) */
 .btn-small {
-  padding: 4px 8px;
-  background: #888;
-  color: white;
-  border-radius: 4px;
+  display: inline-block;
+  padding: 5px 10px;
+
+  background: rgba(4, 168, 194, 0.15);
+  color: #04A8C2;
+
+  border-radius: 8px;
+  font-size: 13px;
   text-decoration: none;
+  font-weight: 600;
+
+  transition: 0.25s ease;
 }
 
+.btn-small:hover {
+  background: rgba(4, 168, 194, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Checkbox line alignment */
 .checkbox-line {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }

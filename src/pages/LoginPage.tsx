@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import ParticlesBackground from "../components/ParticlesBackground";
 import "../styles/login-premium.css";
 
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -13,9 +14,6 @@ export default function LoginPage() {
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
-  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const [darkMode, setDarkMode] = useState(systemPrefersDark);
-
 
   async function fazerLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -25,7 +23,7 @@ export default function LoginPage() {
     try {
       const res = await api.post("/auth/login", { email, senha });
       login(res.data.usuario, res.data.token);
-      navigate("/usuarios");
+      navigate("/mural");
     } catch {
       setErro("Credenciais inválidas");
     } finally {
@@ -34,19 +32,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className={`premium-wrapper ${darkMode ? "dark" : ""}`}>
+    <div className={`premium-wrapper`}>
       <ParticlesBackground />
 
-      {/* Botão tema */}
-      <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-        {darkMode ? "🌞" : "🌙"}
-      </button>
-
       <div className="left-panel">
-        <h1>Sistema de Pesquisas Corporativas</h1>
+        <h1>CuidAtiva</h1>
         <p>
-          Crie questionários, gerencie usuários, acompanhe resultados e tome
-          decisões inteligentes.
+          Cuidamos de Pessoas, fortalecemos empresas.
         </p>
 
         <div className="hero-shapes">
@@ -59,7 +51,9 @@ export default function LoginPage() {
       <div className="right-panel">
         <div className="login-card">
 
-          <div className="logo-circle">📊</div>
+          <div className="logo-wrap">
+            <img src="/img/logo-cuidativa.PNG" alt="Logo" className="login-logo" />
+          </div>
 
           <h2 className="login-title">Acessar</h2>
           <br></br>

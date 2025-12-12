@@ -11,9 +11,8 @@ type QuestaoEdit = {
     id?: number;
     descricaoPergunta: string;
     qtype: string;
-    options?: string; // JSON string
+    options?: string; 
     ord?: number;
-    // campo temporário para edição das options como array
     _opts?: string[];
 };
 
@@ -29,11 +28,11 @@ const TIPOS = [
     { value: "texto", label: "Texto (curto)" },
     { value: "textarea", label: "Texto (parágrafo)" },
     { value: "numero", label: "Número" },
-    { value: "multipla", label: "Múltipla escolha (várias respostas)" },
+    { value: "multipla", label: "Múltipla escolha" },
     { value: "sim_nao", label: "Sim / Não" },
     { value: "1_a_5", label: "Nota 1 a 5" },
     { value: "likert", label: "Likert 1–5" },
-    { value: "opcoes", label: "Lista de opções personalizada" }
+    { value: "opcoes", label: "Lista personalizada" }
 ];
 
 export default function EditarQuestionarioPage() {
@@ -48,7 +47,6 @@ export default function EditarQuestionarioPage() {
         questoes: []
     });
 
-    const [loading, setLoading] = useState(false);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [toDeleteIndex, setToDeleteIndex] = useState<number | null>(null);
 
@@ -58,16 +56,15 @@ export default function EditarQuestionarioPage() {
     }, [id]);
 
     async function carregar(formId: number) {
-        setLoading(true);
         try {
             const token = localStorage.getItem("token");
             const res = await fetch(`http://localhost:8081/api/v1/formularios/${formId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            if (!res.ok) throw new Error("Erro ao carregar questionário");
+            if (!res.ok) throw new Error("Erro ao carregar");
+
             const data = await res.json();
 
-            // mapear questoes para o formato editável, desserializar options
             const questoes: QuestaoEdit[] = (data.questoes || []).map((q: any, idx: number) => {
                 let opts: string[] = [];
                 try {
@@ -96,36 +93,36 @@ export default function EditarQuestionarioPage() {
         } catch (e) {
             console.error(e);
             toast.showToast("Erro ao carregar questionário", "error");
-        } finally {
-            setLoading(false);
         }
     }
 
-    // adicionar nova pergunta
+    // adicionar pergunta
     function adicionarQuestao() {
-        setForm(prev => {
-            const q: QuestaoEdit = {
-                descricaoPergunta: "",
-                qtype: "texto",
-                options: "[]",
-                ord: prev.questoes.length + 1,
-                _opts: []
-            };
-            return { ...prev, questoes: [...prev.questoes, q] };
-        });
+        setForm(prev => ({
+            ...prev,
+            questoes: [
+                ...prev.questoes,
+                {
+                    descricaoPergunta: "",
+                    qtype: "texto",
+                    options: "[]",
+                    ord: prev.questoes.length + 1,
+                    _opts: []
+                }
+            ]
+        }));
     }
 
-    // editar campo da questão
+    // editar pergunta
     function atualizarQuestao(index: number, patch: Partial<QuestaoEdit>) {
         setForm(prev => {
             const copy = [...prev.questoes];
             copy[index] = { ...copy[index], ...patch };
-            // keep ord consistent
             return { ...prev, questoes: copy };
         });
     }
 
-    // remover pergunta (com confirmação)
+    // pedir confirmação para remover
     function pedirRemover(index: number) {
         setToDeleteIndex(index);
         setConfirmOpen(true);
@@ -135,48 +132,40 @@ export default function EditarQuestionarioPage() {
         if (toDeleteIndex === null) return;
         setForm(prev => {
             const copy = prev.questoes.filter((_, i) => i !== toDeleteIndex);
-            // reindex ord
-            const reord = copy.map((q, i) => ({ ...q, ord: i + 1 }));
-            return { ...prev, questoes: reord };
+            return { ...prev, questoes: copy.map((q, i) => ({ ...q, ord: i + 1 })) };
         });
         setConfirmOpen(false);
         setToDeleteIndex(null);
     }
 
-    // duplicar pergunta
+    // duplicar
     function duplicarQuestao(index: number) {
         setForm(prev => {
             const q = prev.questoes[index];
-            const copy = [...prev.questoes];
-            const clone = {
-                ...q,
-                id: undefined,
-                descricaoPergunta: q.descricaoPergunta + " (cópia)"
-            };
-            copy.splice(index + 1, 0, clone);
-            return { ...prev, questoes: copy.map((qq, i) => ({ ...qq, ord: i + 1 })) };
+            const clone = { ...q, id: undefined, descricaoPergunta: q.descricaoPergunta + " (cópia)" };
+            const newList = [...prev.questoes];
+            newList.splice(index + 1, 0, clone);
+            return { ...prev, questoes: newList.map((qq, i) => ({ ...qq, ord: i + 1 })) };
         });
     }
 
-    // reorder up/down
+    // mover
     function moverQuestao(index: number, dir: -1 | 1) {
         setForm(prev => {
             const copy = [...prev.questoes];
             const to = index + dir;
             if (to < 0 || to >= copy.length) return prev;
-            const temp = copy[to];
-            copy[to] = copy[index];
-            copy[index] = temp;
+
+            [copy[index], copy[to]] = [copy[to], copy[index]];
             return { ...prev, questoes: copy.map((q, i) => ({ ...q, ord: i + 1 })) };
         });
     }
 
-    // gerenciar options (array) — só para tipos que usam options
-    function adicionarOption(qIdx: number, text = "") {
+    // opções
+    function adicionarOption(qIdx: number) {
         setForm(prev => {
             const copy = [...prev.questoes];
-            const arr = copy[qIdx]._opts ?? [];
-            copy[qIdx]._opts = [...arr, text];
+            copy[qIdx]._opts = [...(copy[qIdx]._opts ?? []), ""];
             return { ...prev, questoes: copy };
         });
     }
@@ -184,9 +173,9 @@ export default function EditarQuestionarioPage() {
     function atualizarOption(qIdx: number, optIdx: number, text: string) {
         setForm(prev => {
             const copy = [...prev.questoes];
-            const arr = copy[qIdx]._opts ?? [];
-            arr[optIdx] = text;
-            copy[qIdx]._opts = [...arr];
+            const opts = [...(copy[qIdx]._opts ?? [])];
+            opts[optIdx] = text;
+            copy[qIdx]._opts = opts;
             return { ...prev, questoes: copy };
         });
     }
@@ -199,16 +188,14 @@ export default function EditarQuestionarioPage() {
         });
     }
 
-    // salvar questionário (create ou update)
+    // salvar
     async function salvar() {
         try {
-            // validações mínimas
             if (!form.titulo.trim()) {
                 toast.showToast("Título é obrigatório", "error");
                 return;
             }
 
-            // montar payload transformando _opts para options (string JSON)
             const questoesPayload = form.questoes.map((q, idx) => ({
                 id: q.id,
                 descricaoPergunta: q.descricaoPergunta,
@@ -241,27 +228,27 @@ export default function EditarQuestionarioPage() {
 
             if (!res.ok) {
                 const txt = await res.text();
-                throw new Error(txt || "Erro ao salvar questionário");
+                throw new Error(txt || "Erro ao salvar");
             }
 
             toast.showToast(isNew ? "Questionário criado!" : "Questionário salvo!", "success");
-            // após salvar, recarregar ou navegar para listagem
-            const saved = await res.json();
             navigate("/questionarios");
+
         } catch (e) {
             console.error(e);
             toast.showToast("Erro ao salvar questionário", "error");
         }
     }
 
-    // cancelar -> voltar
+    // voltar
     function voltar() {
         navigate("/questionarios");
     }
 
-    // render do card de uma questão
+    // render card
     function renderCard(q: QuestaoEdit, idx: number) {
         const usesOptions = ["multipla", "opcoes", "likert"].includes(q.qtype);
+
         return (
             <div className="questao-card" key={idx}>
                 <div className="card-header">
@@ -280,48 +267,34 @@ export default function EditarQuestionarioPage() {
                             value={q.qtype}
                             onChange={(e) => {
                                 const newType = e.target.value;
-                                // reset options if switching to non-options type
                                 atualizarQuestao(idx, {
                                     qtype: newType,
-                                    _opts: ["likert"].includes(newType) ? ["1", "2", "3", "4", "5"] : (q._opts ?? [])
+                                    _opts:
+                                        newType === "likert"
+                                            ? ["1", "2", "3", "4", "5"]
+                                            : q._opts ?? []
                                 });
                             }}
                         >
-                            {TIPOS.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                            {TIPOS.map(t => (
+                                <option key={t.value} value={t.value}>
+                                    {t.label}
+                                </option>
+                            ))}
                         </select>
 
                         <div className="action-buttons">
-                            <button onClick={() => moverQuestao(idx, -1)} title="Mover para cima">↑</button>
-                            <button onClick={() => moverQuestao(idx, 1)} title="Mover para baixo">↓</button>
-                            <button onClick={() => duplicarQuestao(idx)} title="Duplicar">⎘</button>
-                            <button className="danger" onClick={() => pedirRemover(idx)} title="Remover">✕</button>
+                            <button onClick={() => moverQuestao(idx, -1)}>↑</button>
+                            <button onClick={() => moverQuestao(idx, 1)}>↓</button>
+                            <button onClick={() => duplicarQuestao(idx)}>⎘</button>
+                            <button className="danger" onClick={() => pedirRemover(idx)}>✕</button>
                         </div>
-
                     </div>
                 </div>
 
                 <div className="card-body">
-                    {q.qtype === "texto" && (
-                        <div className="preview small">Resposta curta (texto)</div>
-                    )}
 
-                    {q.qtype === "textarea" && (
-                        <div className="preview small">Resposta em parágrafo (textarea)</div>
-                    )}
-
-                    {q.qtype === "numero" && (
-                        <div className="preview small">Resposta numérica</div>
-                    )}
-
-                    {q.qtype === "sim_nao" && (
-                        <div className="preview small">Sim / Não</div>
-                    )}
-
-                    {q.qtype === "1_a_5" && (
-                        <div className="preview small">Escala 1 — 5 (nota)</div>
-                    )}
-
-                    {(q.qtype === "multipla" || q.qtype === "opcoes" || q.qtype === "likert") && (
+                    {usesOptions && (
                         <div className="options-editor">
                             <label>Opções</label>
 
@@ -332,22 +305,33 @@ export default function EditarQuestionarioPage() {
                                         onChange={(e) => atualizarOption(idx, oi, e.target.value)}
                                         placeholder={`Opção ${oi + 1}`}
                                     />
-                                    <button onClick={() => removerOption(idx, oi)} title="Remover opção">✕</button>
+                                    <button onClick={() => removerOption(idx, oi)}>✕</button>
                                 </div>
                             ))}
 
                             <div className="option-actions">
-                                <button onClick={() => adicionarOption(idx, "")}>+ Adicionar opção</button>
+                                <button onClick={() => adicionarOption(idx)}>+ Adicionar opção</button>
+
                                 {q.qtype === "likert" && (q._opts ?? []).length === 0 && (
-                                    <button onClick={() => {
-                                        // preencher likert padrão
-                                        atualizarQuestao(idx, { _opts: ["Discordo", "Parcialmente", "Neutro", "Concordo", "Concordo totalmente"] } as any);
-                                    }}>Preencher Likert padrão</button>
+                                    <button
+                                        onClick={() =>
+                                            atualizarQuestao(idx, {
+                                                _opts: [
+                                                    "Discordo",
+                                                    "Parcialmente",
+                                                    "Neutro",
+                                                    "Concordo",
+                                                    "Concordo totalmente"
+                                                ]
+                                            })
+                                        }
+                                    >
+                                        Preencher Likert padrão
+                                    </button>
                                 )}
                             </div>
                         </div>
                     )}
-
                 </div>
             </div>
         );
@@ -370,12 +354,18 @@ export default function EditarQuestionarioPage() {
             <div className="form-section">
                 <div className="form-group">
                     <label>Título</label>
-                    <input value={form.titulo} onChange={e => setForm({ ...form, titulo: e.target.value })} />
+                    <input
+                        value={form.titulo}
+                        onChange={e => setForm({ ...form, titulo: e.target.value })}
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Descrição</label>
-                    <textarea value={form.descricao} onChange={e => setForm({ ...form, descricao: e.target.value })} />
+                    <textarea
+                        value={form.descricao}
+                        onChange={e => setForm({ ...form, descricao: e.target.value })}
+                    />
                 </div>
             </div>
 
@@ -395,6 +385,5 @@ export default function EditarQuestionarioPage() {
                 onConfirm={confirmarRemover}
             />
         </div>
-
     );
 }
