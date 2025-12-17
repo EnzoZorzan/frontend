@@ -131,8 +131,9 @@ export default function PerfisPage() {
 
       const payload = {
         nome: form.nome,
-        permissoes: form.permissoes.map(id => ({ id }))
+        permissoesIds: form.permissoes
       };
+
 
       let res;
 
@@ -266,10 +267,11 @@ export default function PerfisPage() {
                   checked={form.permissoes.includes(p.id)}
                   onChange={() => togglePermissao(p.id)}
                 />
-                {p.nomeModulo} — <small>{p.descricaoModulo}</small>
+                {p.descricao}
               </label>
             ))}
           </div>
+
 
           {errors.permissoes && (
             <span className="error-text">{errors.permissoes}</span>

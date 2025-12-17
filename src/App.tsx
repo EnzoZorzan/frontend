@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import UsuariosPage from "./pages/UsuariosPage";
 import PerfisPage from "./pages/PerfisPage";
 import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { RequirePermission } from "./components/RequirePermission";
 import Layout from "./layout/Layout";
+
 import PermissoesPage from "./pages/PermissoesPage";
 import EmpresasPage from "./pages/EmpresasPage";
 import QuestionariosPage from "./pages/QuestionariosPage";
@@ -19,6 +22,12 @@ import ConfiguracoesPage from "./pages/ConfiguracoesPage";
 import MeuPerfilPage from "./pages/MeuPerfilPage";
 import ConvitesPage from "./pages/ConvitesPage";
 import ResponderPublicoPage from "./pages/ResponderPublicoPage";
+import ForbiddenPage from "./pages/ForbiddenPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import ServerErrorPage from "./pages/ServerErrorPage";
+
+
 
 function App() {
   return (
@@ -27,13 +36,13 @@ function App() {
         <BrowserRouter>
           <Routes>
 
-            {/* ROTAS PÚBLICAS */}
+            {/* ================= ROTAS PÚBLICAS ================= */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/recuperar-senha" element={<RecuperarSenhaPage />} />
             <Route path="/redefinir-senha/:token" element={<RedefinirSenhaPage />} />
             <Route path="/responder/:token" element={<ResponderPublicoPage />} />
 
-            {/* ROTAS PROTEGIDAS */}
+            {/* ================= ROTAS PROTEGIDAS ================= */}
             <Route
               path="/"
               element={
@@ -42,18 +51,97 @@ function App() {
                 </PrivateRoute>
               }
             >
+              <Route path="403" element={<ForbiddenPage />} />
+
               <Route path="mural" element={<MuralPage />} />
-              <Route path="empresas" element={<EmpresasPage />} />
-              <Route path="perfis" element={<PerfisPage />} />
-              <Route path="permissoes" element={<PermissoesPage />} />
-              <Route path="questionarios" element={<QuestionariosPage />} />
-              <Route path="usuarios" element={<UsuariosPage />} />
-              <Route path="questionarios/:id" element={<EditarQuestionarioPage />} />
-              <Route path="relatorios-gerais" element={<RelatoriosGeraisPage />} />
-              <Route path="relatorios-empresa" element={<RelatoriosEmpresaPage />} />
-              <Route path="/meu-perfil" element={<MeuPerfilPage />} />
-              <Route path="/configuracoes" element={<ConfiguracoesPage />} />
-              <Route path="/convites" element={<ConvitesPage/>} />
+
+              <Route
+                path="usuarios"
+                element={
+                  <RequirePermission permission="USUARIOS_CADASTRO">
+                    <UsuariosPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="empresas"
+                element={
+                  <RequirePermission permission="EMPRESAS_CADASTRO">
+                    <EmpresasPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="perfis"
+                element={
+                  <RequirePermission permission="PERFIS_CADASTRO">
+                    <PerfisPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="permissoes"
+                element={
+                  <RequirePermission permission="PERMISSOES_CADASTRO">
+                    <PermissoesPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="questionarios"
+                element={
+                  <RequirePermission permission="QUESTIONARIOS_CADASTRO">
+                    <QuestionariosPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="questionarios/:id"
+                element={
+                  <RequirePermission permission="QUESTIONARIO_EDITAR">
+                    <EditarQuestionarioPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="relatorios-gerais"
+                element={
+                  <RequirePermission permission="RELATORIO_GERAL_VIEW">
+                    <RelatoriosGeraisPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="relatorios-empresa"
+                element={
+                  <RequirePermission permission="RELATORIOS_EMPRESAS_VIEW">
+                    <RelatoriosEmpresaPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route path="meu-perfil" element={<MeuPerfilPage />} />
+              <Route path="configuracoes" element={<ConfiguracoesPage />} />
+
+              <Route
+                path="convites"
+                element={
+                  <RequirePermission permission="CONVITES_CADASTRO">
+                    <ConvitesPage />
+                  </RequirePermission>
+                }
+              />
+              <Route path="401" element={<UnauthorizedPage />} />
+              <Route path="403" element={<ForbiddenPage />} />
+              <Route path="500" element={<ServerErrorPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
 
           </Routes>

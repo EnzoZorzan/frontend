@@ -1,15 +1,24 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
 import type { Usuario } from "../types/Usuario";
 
 interface AuthContextType {
   usuario: Usuario | null;
-  perfis: number[]; // IDs dos perfis
+  permissoes: string[];
   login: (usuario: Usuario, token: string) => void;
   logout: () => void;
+  hasPermission: (permission: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
+
+function parseJwt(token: string) {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch {
+    return null;
+  }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
 
@@ -17,48 +26,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     JSON.parse(localStorage.getItem("usuario") || "null")
   );
 
-  const [perfis, setPerfis] = useState<number[]>(
-    JSON.parse(localStorage.getItem("perfis") || "[]")
+  const [permissoes, setPermissoes] = useState<string[]>(
+    JSON.parse(localStorage.getItem("permissoes") || "[]")
   );
 
-  // 🔥 Carrega os perfis do usuário ao inicializar
-  useEffect(() => {
-    if (usuario?.perfil) {
-      const perfilId = usuario.perfil.id;
-      if (perfilId) {
-        setPerfis([perfilId]);
-        localStorage.setItem("perfis", JSON.stringify([perfilId]));
-      }
-    }
-  }, [usuario]);
-
-  // LOGIN
   function login(user: Usuario, token: string) {
+    const payload = parseJwt(token);
+
+    const permissoesToken: string[] = payload?.permissoes || [];
+
     setUsuario(user);
+    setPermissoes(permissoesToken);
 
-    // Extrair ID do perfil (objeto único)
-    const perfilId = user.perfil?.id ? [user.perfil.id] : [];
-    
-    setPerfis(perfilId);
-
-    // Salvar no localStorage
     localStorage.setItem("token", token);
     localStorage.setItem("usuario", JSON.stringify(user));
-    localStorage.setItem("perfis", JSON.stringify(perfilId));
-
-    console.log("LOGIN PERFIS:", perfilId); // debug opcional
+    localStorage.setItem("permissoes", JSON.stringify(permissoesToken));
   }
 
-  // LOGOUT
   function logout() {
     setUsuario(null);
-    setPerfis([]);
+    setPermissoes([]);
     localStorage.clear();
     window.location.href = "/login";
   }
 
+  function hasPermission(permission: string) {
+    return permissoes.includes(permission);
+  }
+
   return (
-    <AuthContext.Provider value={{ usuario, perfis, login, logout }}>
+    <AuthContext.Provider
+      value={{ usuario, permissoes, login, logout, hasPermission }}
+    >
       {children}
     </AuthContext.Provider>
   );

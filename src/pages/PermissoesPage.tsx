@@ -21,9 +21,10 @@ export default function PermissoesPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [form, setForm] = useState({
-    nomeModulo: "",
-    descricaoModulo: ""
+    codigo: "",
+    descricao: ""
   });
+
 
   // ================================
   // CARREGAR LISTA
@@ -59,8 +60,8 @@ export default function PermissoesPage() {
   function novo() {
     setEditando(null);
     setForm({
-      nomeModulo: "",
-      descricaoModulo: ""
+      codigo: "",
+      descricao: ""
     });
     setModalOpen(true);
   }
@@ -71,8 +72,8 @@ export default function PermissoesPage() {
   function editar(item: any) {
     setEditando(item);
     setForm({
-      nomeModulo: item.nomeModulo,
-      descricaoModulo: item.descricaoModulo
+      codigo: item.codigo,
+      descricao: item.descricao
     });
     setModalOpen(true);
   }
@@ -84,8 +85,8 @@ export default function PermissoesPage() {
     const newErrors: Record<string, string> = {};
 
     // === VALIDAÇÕES ===
-    if (!form.nomeModulo.trim()) newErrors.nomeModulo = "O nome da permissão é obrigatório.";
-    if (!form.descricaoModulo.trim()) newErrors.descricaoModulo = "A descrição é obrigatória.";
+    if (!form.codigo.trim()) newErrors.codigo = "O código é obrigatório.";
+    if (!form.descricao.trim()) newErrors.descricao = "A descrição é obrigatória.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -99,8 +100,8 @@ export default function PermissoesPage() {
       const token = localStorage.getItem("token");
 
       const payload = {
-        nomeModulo: form.nomeModulo,
-        descricaoModulo: form.descricaoModulo
+        codigo: form.codigo,
+        descricao: form.descricao
       };
 
       let res;
@@ -186,9 +187,7 @@ export default function PermissoesPage() {
       ) : (
         <DataTable
           columns={[
-            { header: "ID", field: "id" },
-            { header: "Nome", field: "nomeModulo" },
-            { header: "Descrição", field: "descricaoModulo" }
+            { header: "Descrição", field: "descricao" },
           ]}
           data={lista}
           onEdit={editar}
@@ -203,11 +202,11 @@ export default function PermissoesPage() {
         onSave={salvar}
       >
         <div className="form-group">
-          <label>Nome da Permissão</label>
+          <label>Código da Permissão</label>
           <input
             className={errors.nomeModulo ? "input-error" : ""}
-            value={form.nomeModulo}
-            onChange={e => setForm({ ...form, nomeModulo: e.target.value })}
+            value={form.codigo}
+            onChange={e => setForm({ ...form, codigo: e.target.value })}
           />
           {errors.nomeModulo && <span className="error-text">{errors.nomeModulo}</span>}
         </div>
@@ -216,8 +215,8 @@ export default function PermissoesPage() {
           <label>Descrição</label>
           <textarea
             className={errors.descricaoModulo ? "input-error" : ""}
-            value={form.descricaoModulo}
-            onChange={e => setForm({ ...form, descricaoModulo: e.target.value })}
+            value={form.descricao}
+            onChange={e => setForm({ ...form, descricao: e.target.value })}
           />
           {errors.descricaoModulo && <span className="error-text">{errors.descricaoModulo}</span>}
         </div>

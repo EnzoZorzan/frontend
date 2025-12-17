@@ -1,0 +1,74 @@
+.forbidden-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+.forbidden-card {
+  background: #020617;
+  border-radius: 12px;
+  padding: 48px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+}
+
+.forbidden-icon {
+  color: #f87171;
+  margin-bottom: 16px;
+}
+
+.forbidden-card h1 {
+  font-size: 72px;
+  margin: 0;
+  color: #f87171;
+}
+
+.forbidden-card h2 {
+  font-size: 24px;
+  margin: 8px 0 16px;
+}
+
+.forbidden-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5f5;
+}
+
+.forbidden-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-secondary {
+  border: 1px solid #475569;
+  color: #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background: #020617;
+}
