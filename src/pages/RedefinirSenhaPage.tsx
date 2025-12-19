@@ -31,36 +31,36 @@ export default function RedefinirSenhaPage() {
   }
 
   return (
-    <div className="premium-wrapper">
+    <div className="premium-wrapper single-center">
       <div className="right-panel">
         <div className="login-card">
           <div className="logo-circle">🔑</div>
 
           <h2>Redefinir senha</h2>
-
+          <br></br>
           {!sucesso ? (
             <form onSubmit={redefinir} className="form">
 
               <div className="input-group">
                 <input
                   type="password"
-                  placeholder=" "
+                  placeholder="Nova Senha"
                   value={senha}
                   required
                   onChange={(e) => setSenha(e.target.value)}
                 />
-                <label>Nova senha</label>
+
               </div>
 
               <div className="input-group">
                 <input
                   type="password"
-                  placeholder=" "
+                  placeholder="Confirmar Senha"
                   value={confirm}
                   required
                   onChange={(e) => setConfirm(e.target.value)}
                 />
-                <label>Confirmar senha</label>
+
               </div>
 
               {erro && <p className="error">{erro}</p>}

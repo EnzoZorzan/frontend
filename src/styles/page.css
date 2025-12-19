@@ -77,3 +77,12 @@
 .dark .new-btn {
   box-shadow: 0 4px 16px rgba(61, 220, 126, 0.45);
 }
+
+.import-btn {
+  background: rgba(255, 255, 255, 0.45);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}

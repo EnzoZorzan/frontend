@@ -61,9 +61,9 @@ export default function Sidebar() {
       icon: <ClipboardList size={18} />
     },
     {
-      label: "Convites",
-      path: "/convites",
-      permission: "CONVITES_CADASTRO",
+      label: "Funcionários",
+      path: "/funcionarios",
+      permission: "FUNCIONARIOS_CADASTRO",
       icon: <ClipboardList size={18} />
     }
   ];

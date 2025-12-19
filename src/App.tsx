@@ -26,6 +26,7 @@ import ForbiddenPage from "./pages/ForbiddenPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ServerErrorPage from "./pages/ServerErrorPage";
+import FuncionariosPage from "./pages/FuncionariosPesquisaPage";
 
 
 
@@ -40,7 +41,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/recuperar-senha" element={<RecuperarSenhaPage />} />
             <Route path="/redefinir-senha/:token" element={<RedefinirSenhaPage />} />
-            <Route path="/responder/:token" element={<ResponderPublicoPage />} />
+            <Route path="/responder" element={<ResponderPublicoPage />} />
 
             {/* ================= ROTAS PROTEGIDAS ================= */}
             <Route
@@ -60,6 +61,15 @@ function App() {
                 element={
                   <RequirePermission permission="USUARIOS_CADASTRO">
                     <UsuariosPage />
+                  </RequirePermission>
+                }
+              />
+
+              <Route
+                path="funcionarios"
+                element={
+                  <RequirePermission permission="FUNCIONARIOS_CADASTRO">
+                    <FuncionariosPage />
                   </RequirePermission>
                 }
               />
