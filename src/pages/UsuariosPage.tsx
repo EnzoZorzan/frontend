@@ -7,6 +7,8 @@ import { useToast } from "../context/ToastContext";
 import "../styles/page.css";
 import "../styles/form.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type UsuarioDTO = {
   id?: number;
   nome: string;
@@ -52,16 +54,12 @@ export default function UsuariosPage() {
   async function carregarEmpresas() {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8081/api/v1/empresas", {
+      const res = await fetch(`${API_URL}/api/v1/empresas`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
-      if (!res.ok) throw new Error("Erro ao buscar empresas");
-
-      const data = await res.json();
-      setEmpresas(data);
-    } catch (e) {
-      console.error(e);
+      if (!res.ok) throw new Error();
+      setEmpresas(await res.json());
+    } catch {
       toast.showToast("Erro ao carregar empresas", "error");
     }
   }
@@ -69,16 +67,12 @@ export default function UsuariosPage() {
   async function carregarPerfis() {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8081/api/v1/perfis", {
+      const res = await fetch(`${API_URL}/api/v1/perfis`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-
-      if (!res.ok) throw new Error("Erro ao buscar perfis");
-
-      const data = await res.json();
-      setPerfis(data);
-    } catch (e) {
-      console.error(e);
+      if (!res.ok) throw new Error();
+      setPerfis(await res.json());
+    } catch {
       toast.showToast("Erro ao carregar perfis", "error");
     }
   }
@@ -87,14 +81,12 @@ export default function UsuariosPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8081/api/v1/usuarios", {
-        headers: { "Authorization": `Bearer ${token}` }
+      const res = await fetch(`${API_URL}/api/v1/usuarios`, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-      if (!res.ok) throw new Error("Erro ao buscar usuários");
-      const data: UsuarioDTO[] = await res.json();
-      setLista(data);
-    } catch (e) {
-      console.error(e);
+      if (!res.ok) throw new Error();
+      setLista(await res.json());
+    } catch {
       toast.showToast("Erro ao carregar usuários", "error");
     } finally {
       setLoading(false);
@@ -126,18 +118,15 @@ export default function UsuariosPage() {
 
   async function excluirConfirmado() {
     if (!toDelete?.id) return;
-    setConfirmOpen(false);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:8081/api/v1/usuarios/${toDelete.id}`, {
+      await fetch(`${API_URL}/api/v1/usuarios/${toDelete.id}`, {
         method: "DELETE",
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` }
       });
-      if (!res.ok) throw new Error("Erro ao excluir");
       toast.showToast("Usuário excluído", "success");
       carregar();
-    } catch (e) {
-      console.error(e);
+    } catch {
       toast.showToast("Erro ao excluir usuário", "error");
     }
   }
@@ -172,35 +161,26 @@ export default function UsuariosPage() {
         perfil: form.perfilId > 0 ? { id: form.perfilId } : null,
         empresa: form.empresaId > 0 ? { id: form.empresaId } : null
       };
-
       if (form.senha) payload.senha = form.senha;
 
-      let res;
-      if (editando?.id) {
-        res = await fetch(`http://localhost:8081/api/v1/usuarios/${editando.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(payload)
-        });
-      } else {
-        res = await fetch("http://localhost:8081/api/v1/usuarios", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(payload)
-        });
-      }
+      const url = editando?.id
+        ? `${API_URL}/api/v1/usuarios/${editando.id}`
+        : `${API_URL}/api/v1/usuarios`;
 
-      if (!res.ok) throw new Error(await res.text());
+      const method = editando?.id ? "PUT" : "POST";
 
-      toast.showToast(editando ? "Usuário atualizado!" : "Usuário criado!", "success");
+      await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
       setModalOpen(false);
       carregar();
+
 
     } catch (e: any) {
       console.error(e);
