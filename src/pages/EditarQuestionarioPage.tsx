@@ -216,8 +216,8 @@ export default function EditarQuestionarioPage() {
             const token = localStorage.getItem("token");
             const isNew = !form.id;
             const url = isNew
-                ? "http://localhost:8081/api/v1/formularios"
-                : `http://localhost:8081/api/v1/formularios/${form.id}`;
+                ? `${API_URL}/api/v1/formularios`
+                : `${API_URL}/api/v1/formularios/${form.id}`;
 
             const res = await fetch(url, {
                 method: isNew ? "POST" : "PUT",
