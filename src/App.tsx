@@ -59,9 +59,9 @@ function App() {
               <Route
                 path="usuarios"
                 element={
-                  <RequirePermission permission="USUARIOS_CADASTRO">
+                
                     <UsuariosPage />
-                  </RequirePermission>
+               
                 }
               />
 
@@ -86,18 +86,18 @@ function App() {
               <Route
                 path="perfis"
                 element={
-                  <RequirePermission permission="PERFIS_CADASTRO">
+                
                     <PerfisPage />
-                  </RequirePermission>
+             
                 }
               />
 
               <Route
                 path="permissoes"
                 element={
-                  <RequirePermission permission="PERMISSOES_CADASTRO">
+         
                     <PermissoesPage />
-                  </RequirePermission>
+         
                 }
               />
 
