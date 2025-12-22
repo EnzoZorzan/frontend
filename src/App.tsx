@@ -20,7 +20,6 @@ import RelatoriosEmpresaPage from "./pages/RelatoriosEmpresaPage";
 import RelatoriosGeraisPage from "./pages/RelatorioGeraisPage";
 import ConfiguracoesPage from "./pages/ConfiguracoesPage";
 import MeuPerfilPage from "./pages/MeuPerfilPage";
-import ConvitesPage from "./pages/ConvitesPage";
 import ResponderPublicoPage from "./pages/ResponderPublicoPage";
 import ForbiddenPage from "./pages/ForbiddenPage";
 import NotFoundPage from "./pages/NotFoundPage";
