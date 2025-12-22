@@ -6,6 +6,8 @@ import { useToast } from "../context/ToastContext";
 import "../styles/page.css";
 import "../styles/form.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function PermissoesPage() {
   const [lista, setLista] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ export default function PermissoesPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/permissoes", {
+      const res = await fetch(`${API_URL}/api/v1/permissoes`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -107,7 +109,7 @@ export default function PermissoesPage() {
       let res;
 
       if (editando) {
-        res = await fetch(`http://localhost:8081/api/v1/permissoes/${editando.id}`, {
+        res = await fetch(`${API_URL}/api/v1/permissoes/${editando.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -116,7 +118,7 @@ export default function PermissoesPage() {
           body: JSON.stringify(payload)
         });
       } else {
-        res = await fetch("http://localhost:8081/api/v1/permissoes", {
+        res = await fetch(`${API_URL}/api/v1/permissoes`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -153,7 +155,7 @@ export default function PermissoesPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:8081/api/v1/permissoes/${toDelete.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/permissoes/${toDelete.id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });

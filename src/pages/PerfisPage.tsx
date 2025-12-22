@@ -6,6 +6,8 @@ import { useToast } from "../context/ToastContext";
 import "../styles/page.css";
 import "../styles/form.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function PerfisPage() {
   const [lista, setLista] = useState<any[]>([]);
   const [permissoes, setPermissoes] = useState<any[]>([]);
@@ -40,7 +42,7 @@ export default function PerfisPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/perfis", {
+      const res = await fetch(`${API_URL}/api/v1/perfis`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -61,7 +63,7 @@ export default function PerfisPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/permissoes", {
+      const res = await fetch(`${API_URL}/api/v1/permissoes`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -138,7 +140,7 @@ export default function PerfisPage() {
       let res;
 
       if (editando) {
-        res = await fetch(`http://localhost:8081/api/v1/perfis/${editando.id}`, {
+        res = await fetch(`${API_URL}/api/v1/perfis/${editando.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -147,7 +149,7 @@ export default function PerfisPage() {
           body: JSON.stringify(payload)
         });
       } else {
-        res = await fetch("http://localhost:8081/api/v1/perfis", {
+        res = await fetch(`${API_URL}/api/v1/perfis`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -184,7 +186,7 @@ export default function PerfisPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:8081/api/v1/perfis/${toDelete.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/perfis/${toDelete.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
