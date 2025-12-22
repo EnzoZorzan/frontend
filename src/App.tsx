@@ -112,7 +112,7 @@ function App() {
               <Route
                 path="questionarios/:id"
                 element={
-                  <RequirePermission permission="QUESTIONARIO_EDITAR">
+                  <RequirePermission permission="QUESTIONARIOS_EDITAR">
                     <EditarQuestionarioPage />
                   </RequirePermission>
                 }
