@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import ParticlesBackground from "../components/ParticlesBackground";
 import "../styles/login-premium.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function LoginPage() {
   const navigate = useNavigate();
