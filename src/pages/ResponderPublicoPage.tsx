@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles/responder.css";
 import { useToast } from "../context/ToastContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type Questao = {
     id: number;
     descricaoPergunta: string;
@@ -48,7 +50,7 @@ export default function ResponderPublicoPage() {
         async function init() {
             try {
                 const res = await fetch(
-                    "http://localhost:8081/api/v1/formularios/publico"
+                    `${API_URL}/api/v1/formularios/publico`
                 );
 
                 if (!res.ok) throw new Error();
@@ -80,7 +82,7 @@ export default function ResponderPublicoPage() {
         setValidandoCodigo(true);
 
         try {
-            const res = await fetch("http://localhost:8081/api/v1/acesso/validar", {
+            const res = await fetch(`${API_URL}/api/v1/acesso/validar`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -130,7 +132,7 @@ export default function ResponderPublicoPage() {
 
         try {
             const res = await fetch(
-                "http://localhost:8081/api/v1/respostas/respostas-publicas",
+                `${API_URL}/api/v1/respostas/respostas-publicas`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

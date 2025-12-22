@@ -172,7 +172,7 @@ export default function EmpresasPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:8081/api/v1/empresas/${toDelete.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/empresas/${toDelete.id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
