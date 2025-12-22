@@ -7,6 +7,8 @@ import "../styles/page.css";
 import "../styles/form.css";
 import "../styles/questionario-edit.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type QuestaoEdit = {
     id?: number;
     descricaoPergunta: string;
@@ -58,7 +60,7 @@ export default function EditarQuestionarioPage() {
     async function carregar(formId: number) {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:8081/api/v1/formularios/${formId}`, {
+            const res = await fetch(`${API_URL}/api/v1/formularios/${formId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (!res.ok) throw new Error("Erro ao carregar");

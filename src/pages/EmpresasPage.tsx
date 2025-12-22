@@ -6,6 +6,8 @@ import { useToast } from "../context/ToastContext";
 import "../styles/page.css";
 import "../styles/form.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function EmpresasPage() {
   const [lista, setLista] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -41,7 +43,7 @@ export default function EmpresasPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/empresas", {
+      const res = await fetch(`${API_URL}/api/v1/empresas`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -123,7 +125,7 @@ export default function EmpresasPage() {
       let res;
 
       if (editando) {
-        res = await fetch(`http://localhost:8081/api/v1/empresas/${editando.id}`, {
+        res = await fetch(`${API_URL}/api/v1/empresas/${editando.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -132,7 +134,7 @@ export default function EmpresasPage() {
           body: JSON.stringify(payload)
         });
       } else {
-        res = await fetch("http://localhost:8081/api/v1/empresas", {
+        res = await fetch(`${API_URL}/api/v1/empresas`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

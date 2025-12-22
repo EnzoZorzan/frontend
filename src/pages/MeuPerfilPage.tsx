@@ -6,6 +6,8 @@ import "../styles/page.css";
 import "../styles/form.css";
 import "../styles/perfil.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function MeuPerfilPage() {
   const { usuario } = useAuth();
   const toast = useToast();
@@ -34,7 +36,7 @@ export default function MeuPerfilPage() {
         payload.senha = form.senha;
       }
 
-      const res = await fetch(`http://localhost:8081/api/v1/usuarios/${usuario?.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/usuarios/${usuario?.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

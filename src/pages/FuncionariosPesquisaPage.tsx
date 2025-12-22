@@ -7,6 +7,8 @@ import { useToast } from "../context/ToastContext";
 import "../styles/page.css";
 import "../styles/form.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type EmpresaDTO = {
   id: number;
   nome: string;
@@ -51,7 +53,7 @@ export default function FuncionariosPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/funcionarios", {
+      const res = await fetch(`${API_URL}/api/v1/funcionarios`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -69,7 +71,7 @@ export default function FuncionariosPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/empresas", {
+      const res = await fetch(`${API_URL}/api/v1/empresas`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -117,7 +119,7 @@ export default function FuncionariosPage() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:8081/api/v1/funcionarios/${toDelete.id}`,
+        `${API_URL}/api/v1/funcionarios/${toDelete.id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` }
@@ -145,7 +147,7 @@ export default function FuncionariosPage() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        "http://localhost:8081/api/v1/funcionarios/importar-csv",
+        `${API_URL}/api/v1/funcionarios/importar-csv`,
         {
           method: "POST",
           headers: {
@@ -192,7 +194,7 @@ export default function FuncionariosPage() {
 
       if (editando?.id) {
         res = await fetch(
-          `http://localhost:8081/api/v1/funcionarios/${editando.id}`,
+          `${API_URL}/api/v1/funcionarios/${editando.id}`,
           {
             method: "PUT",
             headers: {
@@ -203,7 +205,7 @@ export default function FuncionariosPage() {
           }
         );
       } else {
-        res = await fetch("http://localhost:8081/api/v1/funcionarios", {
+        res = await fetch(`${API_URL}/api/v1/funcionarios`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

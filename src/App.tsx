@@ -59,9 +59,9 @@ function App() {
               <Route
                 path="usuarios"
                 element={
-                
+                  <RequirePermission permission="USUARIOS_CADASTRO">
                     <UsuariosPage />
-               
+                  </RequirePermission>
                 }
               />
 
@@ -86,18 +86,18 @@ function App() {
               <Route
                 path="perfis"
                 element={
-                
+                  <RequirePermission permission="PERFIS_CADASTRO">
                     <PerfisPage />
-             
+                  </RequirePermission>
                 }
               />
 
               <Route
                 path="permissoes"
                 element={
-         
+                  <RequirePermission permission="PERMISSOES_CADASTRO">
                     <PermissoesPage />
-         
+                  </RequirePermission>
                 }
               />
 
@@ -139,15 +139,6 @@ function App() {
 
               <Route path="meu-perfil" element={<MeuPerfilPage />} />
               <Route path="configuracoes" element={<ConfiguracoesPage />} />
-
-              <Route
-                path="convites"
-                element={
-                  <RequirePermission permission="CONVITES_CADASTRO">
-                    <ConvitesPage />
-                  </RequirePermission>
-                }
-              />
               <Route path="401" element={<UnauthorizedPage />} />
               <Route path="403" element={<ForbiddenPage />} />
               <Route path="500" element={<ServerErrorPage />} />

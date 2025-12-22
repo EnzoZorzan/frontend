@@ -5,6 +5,8 @@ import ConfirmDialog from "../components/ConfirmDialog";
 import { useToast } from "../context/ToastContext";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 import "../styles/page.css";
 import "../styles/form.css";
 
@@ -40,7 +42,7 @@ export default function QuestionariosPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8081/api/v1/formularios", {
+      const res = await fetch(`${API_URL}/api/v1/formularios`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -113,7 +115,7 @@ export default function QuestionariosPage() {
       let res;
 
       if (editando) {
-        res = await fetch(`http://localhost:8081/api/v1/formularios/${editando.id}`, {
+        res = await fetch(`${API_URL}/api/v1/formularios/${editando.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -122,7 +124,7 @@ export default function QuestionariosPage() {
           body: JSON.stringify(payload)
         });
       } else {
-        res = await fetch("http://localhost:8081/api/v1/formularios", {
+        res = await fetch(`${API_URL}/api/v1/formularios`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -159,7 +161,7 @@ export default function QuestionariosPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:8081/api/v1/formularios/${toDelete.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/formularios/${toDelete.id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
